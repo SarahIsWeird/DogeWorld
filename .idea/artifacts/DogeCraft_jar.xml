@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DogeCraft:jar">
+    <output-path>E:/1.16 Spigot Server/plugins</output-path>
+    <root id="archive" name="DogeCraft.jar">
+      <element id="module-output" name="DogeCraft" />
+      <element id="extracted-dir" path="E:/1.16 Spigot Server/Spigot/Spigot-API/target/spigot-api-1.16.1-R0.1-SNAPSHOT-shaded.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

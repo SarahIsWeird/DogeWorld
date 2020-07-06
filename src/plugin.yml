@@ -1,0 +1,19 @@
+name: DogeCraft
+version: 0.1
+author: Sarah Klocke
+main: com.sarahisweird.dogecraft.DogeCraft
+api-version: 1.16
+
+commands:
+  rtp:
+    usage: "Usage: /rtp"
+    description: "Teleports you to a random location in the world."
+  spawn:
+    usage: "Usage: /spawn"
+    description: "Teleports you back to the spawn point."
+  heal:
+    usage: "Usage: /heal"
+    description: "Heals and feeds you."
+  fly:
+    usage: "Usage: /fly"
+    description: "Allows you to fly in survival mode."

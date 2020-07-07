@@ -8,11 +8,14 @@ import java.util.List;
 
 public class DBManager {
     private static Connection playersConn;
+    private static Statement playersStmt;
 
     public DBManager() {
         try {
             Class.forName("org.sqlite.JDBC");
+
             playersConn = DriverManager.getConnection("jdbc:sqlite:server.db");
+            playersStmt = playersConn.createStatement();
         } catch (Exception e) {
             System.err.println("Failed to connect to the SQLite database.");
             e.printStackTrace();
@@ -21,6 +24,8 @@ public class DBManager {
 
     public void disable() {
         try {
+            playersStmt.close();
+
             playersConn.commit();
             playersConn.close();
         } catch (SQLException e) {
@@ -30,14 +35,10 @@ public class DBManager {
 
     public void createPlayerDatabase() throws DBException {
         try {
-            Statement statement = playersConn.createStatement();
-
-            statement.execute("DROP TABLE IF EXISTS players");
-            statement.execute("CREATE TABLE players (" +
+            playersStmt.execute("DROP TABLE IF EXISTS players");
+            playersStmt.execute("CREATE TABLE players (" +
                     "UUID   CHAR(36) PRIMARY KEY NOT NULL, " +
                     "flying TINYINT              NOT NULL)");
-
-            statement.close();
         } catch (SQLException e) {
             throw new DBException();
         }
@@ -49,9 +50,7 @@ public class DBManager {
         String query = "INSERT INTO players (UUID, flying) VALUES (" + uuid + ", 0);";
 
         try {
-            Statement statement = playersConn.createStatement();
-            statement.executeQuery(query);
-            statement.close();
+            playersStmt.executeQuery(query);
         } catch (SQLException e) {
             throw new DBException();
         }
@@ -63,15 +62,12 @@ public class DBManager {
         String query = "SELECT COUNT(UUID) FROM players WHERE UUID='" + uuid + "'";
 
         try {
-            Statement statement = playersConn.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = playersStmt.executeQuery(query);
 
             if (resultSet.next()) {
-                statement.close();
+                playersStmt.close();
                 return true;
             }
-
-            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,16 +79,12 @@ public class DBManager {
         List<String> lines = new ArrayList<>();
 
         try {
-            Statement statement = playersConn.createStatement();
-
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM players");
+            ResultSet resultSet = playersStmt.executeQuery("SELECT * FROM players");
 
             while (resultSet.next()) {
                 lines.add(resultSet.getString("UUID") + ": "
                         + "flying(" + resultSet.getInt("flying") + ")");
             }
-
-            statement.close();
         } catch (SQLException e) {
             throw new DBException();
         }
@@ -113,14 +105,10 @@ public class DBManager {
         this.loadPlayer(player);
 
         try {
-            Statement statement = playersConn.createStatement();
-
-            ResultSet resultSet = statement.executeQuery("SELECT flying FROM players WHERE UUID='" + uuid + "'");
+            ResultSet resultSet = playersStmt.executeQuery("SELECT flying FROM players WHERE UUID='" + uuid + "'");
             resultSet.next(); // UUID = unique -> no while loop
 
             returnVal = resultSet.getBoolean("flying");
-
-            statement.close();
         } catch (SQLException e) {
             throw new DBException();
         }
@@ -132,9 +120,7 @@ public class DBManager {
         String uuid = player.getUniqueId().toString();
 
         try {
-            Statement statement = playersConn.createStatement();
-            statement.execute("UPDATE players SET flying = " + (flying ? 1 : 0) + " WHERE UUID = '" + uuid + "'");
-            statement.close();
+            playersStmt.execute("UPDATE players SET flying = " + (flying ? 1 : 0) + " WHERE UUID = '" + uuid + "'");
         } catch (SQLException e) {
             throw new DBException();
         }

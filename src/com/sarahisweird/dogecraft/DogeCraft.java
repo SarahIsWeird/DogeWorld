@@ -1,12 +1,10 @@
 package com.sarahisweird.dogecraft;
 
+import com.sarahisweird.dogecraft.commands.Teleport;
 import com.sarahisweird.dogecraft.config.Config;
 import com.sarahisweird.dogecraft.dbmanager.DBException;
 import com.sarahisweird.dogecraft.dbmanager.DBManager;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,17 +14,15 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class DogeCraft extends JavaPlugin implements Listener {
-
-    private static final int bound = 30000;
 
     Config config = new Config(this);
 
     DBManager dbManager;
+
+    Teleport teleportExec;
 
     // Alias for brevity
     private String fmt(String msg) {
@@ -38,6 +34,9 @@ public class DogeCraft extends JavaPlugin implements Listener {
         config.load();
 
         this.getServer().getPluginManager().registerEvents(this, this);
+
+        this.getCommand("rtp").setExecutor(teleportExec);
+        this.getCommand("spawn").setExecutor(teleportExec);
 
         dbManager = new DBManager();
 
@@ -61,39 +60,7 @@ public class DogeCraft extends JavaPlugin implements Listener {
 
         Player player = (Player) sender;
 
-        if (command.getName().equalsIgnoreCase("rtp")) {
-            Date now = new Date();
-            Random rnd = new Random();
-
-            rnd.setSeed(now.getTime());
-
-            int x;
-            int z;
-            int highestBlockY;
-            Material highestBlockType;
-
-            World world = player.getWorld();
-
-            do {
-                x = rnd.nextInt(bound * 2) - bound;
-                z = rnd.nextInt(bound * 2) - bound;
-                highestBlockType = world.getHighestBlockAt(x, z).getType();
-
-            } while (highestBlockType.equals(Material.WATER) || highestBlockType.equals(Material.LAVA));
-
-            highestBlockY = world.getHighestBlockYAt(x, z);
-
-            player.sendMessage("Teleporting to " + x + ", " + highestBlockY + ", " + z + "...");
-
-            Location tpLocation = new Location(player.getWorld(), x + 0.5, highestBlockY + 1, z + 0.5);
-
-            player.teleport(tpLocation);
-
-        } else if (command.getName().equalsIgnoreCase("spawn")) {
-            Location tpLocation = new Location(player.getWorld(), 169.5, 68, 191.5);
-
-            player.teleport(tpLocation);
-        } else if (command.getName().equalsIgnoreCase("heal")) {
+        if (command.getName().equalsIgnoreCase("heal")) {
             player.setFoodLevel(20);
             player.setHealth(20);
             player.setSaturation(20);

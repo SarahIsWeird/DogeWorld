@@ -12,9 +12,9 @@ public class DBManager {
     public DBManager() {
         try {
             Class.forName("org.sqlite.JDBC");
-            playersConn = DriverManager.getConnection("jdbc:sqlite:players.db");
+            playersConn = DriverManager.getConnection("jdbc:sqlite:server.db");
         } catch (Exception e) {
-            System.err.println("Failed to connect to the SQLite database. (players.db)");
+            System.err.println("Failed to connect to the SQLite database.");
             e.printStackTrace();
         }
     }
@@ -24,7 +24,7 @@ public class DBManager {
             playersConn.commit();
             playersConn.close();
         } catch (SQLException e) {
-            System.err.println("Failed to properly close the SQLite database. (players.db)");
+            System.err.println("Failed to properly close the SQLite database.");
         }
     }
 

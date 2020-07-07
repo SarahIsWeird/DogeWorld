@@ -1,5 +1,5 @@
 name: DogeCraft
-version: 0.1
+version: 0.2
 author: Sarah Klocke
 main: com.sarahisweird.dogecraft.DogeCraft
 api-version: 1.16
@@ -17,3 +17,6 @@ commands:
   fly:
     usage: "Usage: /fly"
     description: "Allows you to fly in survival mode."
+  db:
+    usage: "Usage: /db §osubcommand§r"
+    description: "Provides access to the SQLite database."

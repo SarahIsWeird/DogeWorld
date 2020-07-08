@@ -44,37 +44,6 @@ public class DBManager {
         }
     }
 
-    private void createPlayerData(Player player) throws DBException {
-        String uuid = player.getUniqueId().toString();
-
-        String query = "INSERT INTO players (UUID, flying) VALUES (" + uuid + ", 0);";
-
-        try {
-            playersStmt.executeQuery(query);
-        } catch (SQLException e) {
-            throw new DBException();
-        }
-    }
-
-    private boolean playerDataExists(Player player) {
-        String uuid = player.getUniqueId().toString();
-
-        String query = "SELECT COUNT(UUID) FROM players WHERE UUID='" + uuid + "'";
-
-        try {
-            ResultSet resultSet = playersStmt.executeQuery(query);
-
-            if (resultSet.next()) {
-                playersStmt.close();
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
     public List<String> dump() throws DBException {
         List<String> lines = new ArrayList<>();
 
@@ -93,8 +62,23 @@ public class DBManager {
     }
 
     public void loadPlayer(Player player) throws DBException {
-        if (!playerDataExists(player)) {
-            createPlayerData(player);
+        String uuid = player.getUniqueId().toString();
+
+        try {
+            ResultSet resultSet = playersStmt.executeQuery("SELECT COUNT(UUID) FROM players " +
+                    "WHERE UUID = '" + uuid + "'");
+            resultSet.next();
+
+            if (resultSet.getInt(1) == 1) {
+                resultSet.close();
+
+                return;
+            }
+
+            playersStmt.execute("INSERT INTO players (UUID, flying) VALUES ('" + uuid + "', 0);");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException();
         }
     }
 
@@ -102,14 +86,14 @@ public class DBManager {
         String uuid = player.getUniqueId().toString();
         boolean returnVal;
 
-        this.loadPlayer(player);
-
         try {
             ResultSet resultSet = playersStmt.executeQuery("SELECT flying FROM players WHERE UUID='" + uuid + "'");
             resultSet.next(); // UUID = unique -> no while loop
 
             returnVal = resultSet.getBoolean("flying");
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
             throw new DBException();
         }
 

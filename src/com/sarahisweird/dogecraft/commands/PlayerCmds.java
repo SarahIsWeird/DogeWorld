@@ -15,12 +15,12 @@ public class PlayerCmds {
         return true;
     }
 
-    public static boolean execFlyCmd(Player player, DBManager dbManager) {
+    public static boolean execFlyCmd(Player player) {
         boolean flying = false;
 
         try {
-            flying = !dbManager.isPlayerFlying(player);
-            dbManager.setPlayerFlying(player, flying);
+            flying = !DBManager.isPlayerFlying(player);
+            DBManager.setPlayerFlying(player, flying);
         } catch (DBException e) {
             e.printStackTrace();
         }

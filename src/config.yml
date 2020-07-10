@@ -1,0 +1,13 @@
+ranklist:
+  - Member
+  - Donator
+  - Developer
+  - CM
+  - Owner
+
+ranks:
+  member:
+    default: true
+    prefix: "&3[&aMember&3]"
+    name_color: "&7"
+    message_color: ""

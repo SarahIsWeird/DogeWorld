@@ -1,39 +1,33 @@
 package com.sarahisweird.dogecraft.config;
 
 import com.sarahisweird.dogecraft.DogeCraft;
-import org.bukkit.entity.Player;
 
 public class Config {
-    private DogeCraft plugin;
+    private static DogeCraft plugin;
 
-    public Config(DogeCraft plugin) {
-        this.plugin = plugin;
+    public static void load(DogeCraft plugin) {
+        Config.plugin = plugin;
 
-        this.load();
+        Config.plugin.saveDefaultConfig();
     }
 
-    public void load() {
-        this.plugin.saveDefaultConfig();
+    public static void save() {
+        Config.plugin.saveConfig();
     }
 
-    public void save() {
-        this.plugin.saveConfig();
+    public static boolean getRankIsDefault(String rankName) {
+        return Config.plugin.getConfig().getBoolean("ranks." + rankName + ".default");
     }
 
-    public boolean getFlying(Player player) {
-        String path = "flying." + player.getUniqueId().toString();
-
-        if (!this.plugin.getConfig().isBoolean(path)) {
-            this.plugin.getConfig().set(path, false);
-            return false;
-        }
-
-        return this.plugin.getConfig().getBoolean(path);
+    public static String getRankPrefix(String rankName) {
+        return Config.plugin.getConfig().getString("ranks." + rankName + ".prefix");
     }
 
-    public void setFlying(Player player, boolean flyingEnabled) {
-        String path = "flying." + player.getUniqueId().toString();
+    public static String getRankNameColor(String rankName) {
+        return Config.plugin.getConfig().getString("ranks." + rankName + ".name_color");
+    }
 
-        this.plugin.getConfig().set(path, flyingEnabled);
+    public static String getMessageColor(String rankName) {
+        return Config.plugin.getConfig().getString("ranks." + rankName + ".message_color");
     }
 }

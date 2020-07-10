@@ -11,7 +11,7 @@ public class DatabaseCmds {
     private static String fmt(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
-    public static boolean execDBCmd(CommandSender sender, String[] args, DBManager dbManager) {
+    public static boolean execDBCmd(CommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.sendMessage("Available subcommands: /db create, dump");
             return true;
@@ -26,7 +26,7 @@ public class DatabaseCmds {
             }
 
             try {
-                dbManager.createPlayerDatabase();
+                DBManager.createPlayerDatabase();
             } catch (DBException e) {
                 e.printStackTrace();
                 sender.sendMessage(fmt("&4The database couldn't be created. See the logs for more info."));
@@ -38,7 +38,7 @@ public class DatabaseCmds {
         } else if (args[0].equalsIgnoreCase("dump")) {
             try {
                 sender.sendMessage("Dumping database...");
-                List<String> lines = dbManager.dump();
+                List<String> lines = DBManager.dump();
 
                 for (String str : lines) {
                     sender.sendMessage(str);

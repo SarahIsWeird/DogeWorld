@@ -7,12 +7,11 @@ import org.bukkit.entity.Player;
 
 public class CommandManager {
 
-    public static boolean executeCommand(CommandSender sender, Command command, String label,
-                                         String[] args, DBManager dbManager) {
+    public static boolean executeCommand(CommandSender sender, Command command, String label, String[] args) {
         /* Commands independent of (sender instanceof Player) */
 
         if (command.getName().equalsIgnoreCase("db")) {
-            return DatabaseCmds.execDBCmd(sender, args, dbManager);
+            return DatabaseCmds.execDBCmd(sender, args);
         }
 
         /* Commands with (sender instanceof Player) */
@@ -33,7 +32,7 @@ public class CommandManager {
         else if (command.getName().equalsIgnoreCase("heal")) {
             return PlayerCmds.execHealCmd(player);
         } else if (command.getName().equalsIgnoreCase("fly")) {
-            return PlayerCmds.execFlyCmd(player, dbManager);
+            return PlayerCmds.execFlyCmd(player);
         }
 
         return false;

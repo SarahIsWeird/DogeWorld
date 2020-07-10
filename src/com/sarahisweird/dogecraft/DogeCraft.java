@@ -5,6 +5,8 @@ import com.sarahisweird.dogecraft.commands.TeleportCmds;
 import com.sarahisweird.dogecraft.config.Config;
 import com.sarahisweird.dogecraft.dbmanager.DBException;
 import com.sarahisweird.dogecraft.dbmanager.DBManager;
+import com.sarahisweird.dogecraft.ranks.Rank;
+import com.sarahisweird.dogecraft.ranks.RankManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,10 +21,6 @@ import java.util.List;
 
 public class DogeCraft extends JavaPlugin implements Listener {
 
-    Config config = new Config(this);
-
-    DBManager dbManager;
-
     // Alias for brevity
     private String fmt(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);
@@ -30,11 +28,11 @@ public class DogeCraft extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        config.load();
+        Config.load(this);
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
-        dbManager = new DBManager();
+        DBManager.loadDatabase();
 
         System.out.println("Successfully connected to the database.");
 
@@ -43,16 +41,16 @@ public class DogeCraft extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        config.save();
+        Config.save();
 
-        dbManager.disable();
+        DBManager.disable();
 
         System.out.print("Plugin disabled.");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        return CommandManager.executeCommand(sender, command, label, args, dbManager);
+        return CommandManager.executeCommand(sender, command, label, args);
     }
 
     @EventHandler
@@ -61,8 +59,8 @@ public class DogeCraft extends JavaPlugin implements Listener {
         boolean flying = false;
 
         try {
-            dbManager.loadPlayer(player);
-            flying = dbManager.isPlayerFlying(player);
+            DBManager.loadPlayer(player);
+            flying = DBManager.isPlayerFlying(player);
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -73,6 +71,15 @@ public class DogeCraft extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onMessage(AsyncPlayerChatEvent event) {
-        event.setMessage(fmt(event.getMessage()));
+        Rank playerRank = RankManager.getRank(event.getPlayer());
+
+        String prefix = playerRank.getPrefix();
+        String nameColor = playerRank.getNameColor();
+        String messageColor = playerRank.getMessageColor();
+
+        this.getServer().broadcastMessage(fmt(prefix + "&r " + nameColor + event.getPlayer().getDisplayName()
+                + "&r: " + messageColor + event.getMessage()));
+
+        event.setCancelled(true);
     }
 }

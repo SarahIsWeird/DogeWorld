@@ -10,7 +10,7 @@ public class DBManager {
     private static Connection playersConn;
     private static Statement playersStmt;
 
-    public DBManager() {
+    public static void loadDatabase() {
         try {
             Class.forName("org.sqlite.JDBC");
 
@@ -22,7 +22,7 @@ public class DBManager {
         }
     }
 
-    public void disable() {
+    public static void disable() {
         try {
             playersStmt.close();
 
@@ -33,7 +33,7 @@ public class DBManager {
         }
     }
 
-    public void createPlayerDatabase() throws DBException {
+    public static void createPlayerDatabase() throws DBException {
         try {
             playersStmt.execute("DROP TABLE IF EXISTS players");
             playersStmt.execute("CREATE TABLE players (" +
@@ -44,7 +44,7 @@ public class DBManager {
         }
     }
 
-    public List<String> dump() throws DBException {
+    public static List<String> dump() throws DBException {
         List<String> lines = new ArrayList<>();
 
         try {
@@ -61,7 +61,7 @@ public class DBManager {
         return lines;
     }
 
-    public void loadPlayer(Player player) throws DBException {
+    public static void loadPlayer(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
 
         try {
@@ -82,7 +82,7 @@ public class DBManager {
         }
     }
 
-    public boolean isPlayerFlying(Player player) throws DBException {
+    public static boolean isPlayerFlying(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
         boolean returnVal;
 
@@ -100,7 +100,7 @@ public class DBManager {
         return returnVal;
     }
 
-    public void setPlayerFlying(Player player, boolean flying) throws DBException {
+    public static void setPlayerFlying(Player player, boolean flying) throws DBException {
         String uuid = player.getUniqueId().toString();
 
         try {
@@ -108,5 +108,22 @@ public class DBManager {
         } catch (SQLException e) {
             throw new DBException();
         }
+    }
+
+    public static int getPlayerRank(Player player) throws DBException {
+        String uuid = player.getUniqueId().toString();
+
+        int retVal;
+
+        try {
+            ResultSet resultSet = playersStmt.executeQuery("SELECT rank FROM players WHERE UUID='" + uuid + "'");
+            resultSet.next();
+
+            retVal = resultSet.getInt(1);
+        } catch (SQLException e) {
+            throw new DBException();
+        }
+
+        return retVal;
     }
 }

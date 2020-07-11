@@ -1,4 +1,4 @@
-package com.sarahisweird.dogecraft.ranks;
+package com.sarahisweird.dogeworld.ranks;
 
 public abstract class Rank {
     private String prefix;

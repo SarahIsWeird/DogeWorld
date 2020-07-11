@@ -1,4 +1,4 @@
-package com.sarahisweird.dogecraft.towns;
+package com.sarahisweird.dogeworld.towns;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,8 @@ import java.util.List;
 public class Town {
     private String name;
     private String owner;
-    /** A list of UUIDs. */
+
+    /* A list of UUIDs. */
     private List<String> members = new ArrayList<>();
 
     public Town(String name, String owner) {

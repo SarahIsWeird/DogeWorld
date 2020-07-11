@@ -1,9 +1,9 @@
-package com.sarahisweird.dogecraft.commands;
+package com.sarahisweird.dogeworld.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class UtilityCommands {
+public class UtilityCmds {
     private static String fmt(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }

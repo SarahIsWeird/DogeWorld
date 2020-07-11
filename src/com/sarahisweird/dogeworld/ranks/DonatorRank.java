@@ -1,6 +1,6 @@
-package com.sarahisweird.dogecraft.ranks;
+package com.sarahisweird.dogeworld.ranks;
 
-import com.sarahisweird.dogecraft.config.Config;
+import com.sarahisweird.dogeworld.config.Config;
 
 public class DonatorRank extends Rank {
     public DonatorRank() {

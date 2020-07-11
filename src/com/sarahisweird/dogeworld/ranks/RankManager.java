@@ -1,7 +1,7 @@
-package com.sarahisweird.dogecraft.ranks;
+package com.sarahisweird.dogeworld.ranks;
 
-import com.sarahisweird.dogecraft.dbmanager.DBException;
-import com.sarahisweird.dogecraft.dbmanager.DBManager;
+import com.sarahisweird.dogeworld.dbmanager.DBException;
+import com.sarahisweird.dogeworld.dbmanager.DBManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -52,6 +52,11 @@ public class RankManager {
         return -1;
     }
 
+    /**
+     * Fetches the rank of a player.
+     * @param player The player in question.
+     * @return The rank of the player.
+     */
     public static Rank getRank(Player player) {
         try {
             return rankIdToRank(DBManager.getPlayerRank(player));
@@ -60,6 +65,12 @@ public class RankManager {
         }
     }
 
+    /**
+     * Sets a player's rank. Will also update the database.
+     * @param player The player to be modified.
+     * @param rank The rank to be set.
+     * @return Whether the update was successful or not.
+     */
     public static boolean setRank(Player player, Rank rank) {
         try {
             DBManager.setPlayerRank(player, rankToRankId(rank));
@@ -72,8 +83,8 @@ public class RankManager {
 
     /** Formats a message based on the player's rank.
      * For example: A member's message won't be formatted, while one from a donator will be.
-     * @param player The calling player
-     * @param message The message to be formatted
+     * @param player The calling player.
+     * @param message The message to be formatted.
      * @return The (un)formatted message.
      */
     public static String formatMessage(Player player, String message) {
@@ -84,6 +95,11 @@ public class RankManager {
         }
     }
 
+    /**
+     * Converts a rank's name into the corresponding class instance.
+     * @param name The rank's name.
+     * @return The class instance.
+     */
     public static Rank rankNameToRank(String name) {
         if (name.equalsIgnoreCase("member")) {
             return memberRank;

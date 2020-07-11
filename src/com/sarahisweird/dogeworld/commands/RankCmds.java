@@ -1,7 +1,7 @@
-package com.sarahisweird.dogecraft.commands;
+package com.sarahisweird.dogeworld.commands;
 
-import com.sarahisweird.dogecraft.ranks.Rank;
-import com.sarahisweird.dogecraft.ranks.RankManager;
+import com.sarahisweird.dogeworld.ranks.Rank;
+import com.sarahisweird.dogeworld.ranks.RankManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

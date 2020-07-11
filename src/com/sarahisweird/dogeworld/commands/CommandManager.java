@@ -1,4 +1,4 @@
-package com.sarahisweird.dogecraft.commands;
+package com.sarahisweird.dogeworld.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -6,6 +6,16 @@ import org.bukkit.entity.Player;
 
 public class CommandManager {
 
+    /**
+     * Calls the specific command. Must be called in the onCommand method of the main class.
+     *
+     * This is a workaround to make command calling tidier. CommandExecutors don't seem to work yet in 1.15+ for whatever reason.
+     * @param sender The command sender.
+     * @param command The command.
+     * @param label The command label.
+     * @param args The arguments passed.
+     * @return Whether the command successfully ran. True will not show the usage message, false will. Must be returned from the onCommand method.
+     */
     public static boolean executeCommand(CommandSender sender, Command command, String label, String[] args) {
         /* Commands independent of (sender instanceof Player) */
 
@@ -43,7 +53,7 @@ public class CommandManager {
         }
 
         else if (command.getName().equalsIgnoreCase("colors")) {
-            return UtilityCommands.execColorsCmd(player);
+            return UtilityCmds.execColorsCmd(player);
         }
 
         return false;

@@ -1,7 +1,7 @@
-package com.sarahisweird.dogecraft.commands;
+package com.sarahisweird.dogeworld.commands;
 
-import com.sarahisweird.dogecraft.dbmanager.DBException;
-import com.sarahisweird.dogecraft.dbmanager.DBManager;
+import com.sarahisweird.dogeworld.dbmanager.DBException;
+import com.sarahisweird.dogeworld.dbmanager.DBManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 

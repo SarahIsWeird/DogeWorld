@@ -1,11 +1,8 @@
-package com.sarahisweird.dogecraft.commands;
+package com.sarahisweird.dogeworld.commands;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Date;

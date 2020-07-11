@@ -1,5 +1,6 @@
-package com.sarahisweird.dogecraft.dbmanager;
+package com.sarahisweird.dogeworld.dbmanager;
 
+import com.sun.istack.internal.Nullable;
 import org.bukkit.entity.Player;
 
 import java.sql.*;
@@ -10,6 +11,9 @@ public class DBManager {
     private static Connection playersConn;
     private static Statement playersStmt;
 
+    /**
+     * Loads the database. Must be called before any requests, or it won't work. (Static constructor)
+     */
     public static void loadDatabase() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -22,6 +26,9 @@ public class DBManager {
         }
     }
 
+    /**
+     * Safely unloads the database. If this isn't called, data might be lost.
+     */
     public static void disable() {
         try {
             playersStmt.close();
@@ -33,6 +40,10 @@ public class DBManager {
         }
     }
 
+    /**
+     * Creates the "players" table in the database. Will delete any previous table named "players".
+     * @throws DBException
+     */
     public static void createPlayerDatabase() throws DBException {
         try {
             playersStmt.execute("DROP TABLE IF EXISTS players");
@@ -46,6 +57,11 @@ public class DBManager {
         }
     }
 
+    /**
+     * Dumps the database contents.
+     * @return A list of the contents. Formatted, each line is a row in the table.
+     * @throws DBException Only thrown if the database couldn't be created.
+     */
     public static List<String> dump() throws DBException {
         List<String> lines = new ArrayList<>();
 
@@ -65,6 +81,12 @@ public class DBManager {
         return lines;
     }
 
+    /**
+     * Prepares future calls for a player to the database.
+     * Must be called before any requests for a player are made, or silent errors might creep up.
+     * @param player The player to load.
+     * @throws DBException Thrown if the player couldn't be loaded, possibly because loadDatabase() wasn't called.
+     */
     public static void loadPlayer(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
 
@@ -87,6 +109,12 @@ public class DBManager {
         }
     }
 
+    /**
+     * Checks if a player was flying before they logged off.
+     * @param player The player in question.
+     * @return Whether they were flying.
+     * @throws DBException Only thrown if the query failed, possibly because loadDatabase() wasn't called. Never thrown because of the value not previously being set.
+     */
     public static boolean isPlayerFlying(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
         boolean returnVal;
@@ -105,6 +133,12 @@ public class DBManager {
         return returnVal;
     }
 
+    /**
+     * Changes the flying flag in the database for a specific player.
+     * @param player The player to be modified.
+     * @param flying The value to be set.
+     * @throws DBException Only thrown if the update failed, possibly because loadDatabase() wasn't called.
+     */
     public static void setPlayerFlying(Player player, boolean flying) throws DBException {
         String uuid = player.getUniqueId().toString();
 
@@ -115,6 +149,12 @@ public class DBManager {
         }
     }
 
+    /**
+     * Fetches a player's rank ID from the database.
+     * @param player The player to be checked.
+     * @return The rank ID.
+     * @throws DBException Only thrown if the query failed, possibly because loadDatabase() wasn't called, never because the value wasn't previously set.
+     */
     public static int getPlayerRank(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
 
@@ -132,6 +172,12 @@ public class DBManager {
         return retVal;
     }
 
+    /**
+     * Sets the rank for a player.
+     * @param player The player to be modified.
+     * @param rankId The rank ID that's supposed to be set.
+     * @throws DBException Only thrown if the update failed, possibly because loadDatabase() wasn't called.
+     */
     public static void setPlayerRank(Player player, int rankId) throws DBException {
         String uuid = player.getUniqueId().toString();
 
@@ -142,6 +188,12 @@ public class DBManager {
         }
     }
 
+    /**
+     * Fetches the nickname of a player from the database.
+     * @param player The player in question.
+     * @return The nickname, formatted with an ampersand (&) as the formatting character.
+     * @throws DBException Only thrown if the query failed, possibly because loadDatabase() wasn't called, never because it wasn't previously set.
+     */
     public static String getPlayerNickname(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
         String playerNick = "";
@@ -159,8 +211,17 @@ public class DBManager {
         return playerNick;
     }
 
-    public static void setPlayerNick(Player player, String nickname) throws DBException {
+    /**
+     * Sets or updates a player's nickname in the database.
+     * @param player The player to be modified.
+     * @param nickname The nickname to be set. Null will remove any nickname, equivalent to "".
+     * @throws DBException Only thrown if the update failed, possibly because loadDatabase() wasn't called.
+     */
+    public static void setPlayerNick(Player player, @Nullable String nickname) throws DBException {
         String uuid = player.getUniqueId().toString();
+
+        if (nickname == null)
+            nickname = "";
 
         try {
             playersStmt.execute("UPDATE players SET nickname = '" + nickname + "' WHERE UUID = '" + uuid + "'");

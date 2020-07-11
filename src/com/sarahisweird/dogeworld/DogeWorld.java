@@ -1,12 +1,11 @@
-package com.sarahisweird.dogecraft;
+package com.sarahisweird.dogeworld;
 
-import com.sarahisweird.dogecraft.commands.CommandManager;
-import com.sarahisweird.dogecraft.commands.TeleportCmds;
-import com.sarahisweird.dogecraft.config.Config;
-import com.sarahisweird.dogecraft.dbmanager.DBException;
-import com.sarahisweird.dogecraft.dbmanager.DBManager;
-import com.sarahisweird.dogecraft.ranks.Rank;
-import com.sarahisweird.dogecraft.ranks.RankManager;
+import com.sarahisweird.dogeworld.commands.CommandManager;
+import com.sarahisweird.dogeworld.config.Config;
+import com.sarahisweird.dogeworld.dbmanager.DBException;
+import com.sarahisweird.dogeworld.dbmanager.DBManager;
+import com.sarahisweird.dogeworld.ranks.Rank;
+import com.sarahisweird.dogeworld.ranks.RankManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,9 +16,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
-
-public class DogeCraft extends JavaPlugin implements Listener {
+public class DogeWorld extends JavaPlugin implements Listener {
 
     // Alias for brevity
     private String fmt(String msg) {

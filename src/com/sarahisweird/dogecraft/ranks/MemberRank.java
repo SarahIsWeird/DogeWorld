@@ -8,4 +8,9 @@ public class MemberRank extends Rank {
         super(Config.getRankPrefix("member"), Config.getRankNameColor("member"),
                 Config.getMessageColor("member"));
     }
+
+    @Override
+    public boolean canFormatMessages() {
+        return Config.canFormatMessage("member");
+    }
 }

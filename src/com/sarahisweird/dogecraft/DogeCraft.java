@@ -77,8 +77,19 @@ public class DogeCraft extends JavaPlugin implements Listener {
         String nameColor = playerRank.getNameColor();
         String messageColor = playerRank.getMessageColor();
 
-        this.getServer().broadcastMessage(fmt(prefix + "&r " + nameColor + event.getPlayer().getDisplayName()
-                + "&r: " + messageColor + event.getMessage()));
+        String playerName = event.getPlayer().getDisplayName();
+
+        try {
+            String nickName = DBManager.getPlayerNickname(event.getPlayer());
+
+            if (!nickName.equals(""))
+                playerName = nickName;
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+
+        this.getServer().broadcastMessage(fmt(prefix + "&r " + nameColor + playerName + "&r: " + messageColor)
+                + RankManager.formatMessage(event.getPlayer(), event.getMessage()));
 
         event.setCancelled(true);
     }

@@ -20,3 +20,12 @@ commands:
   db:
     usage: "Usage: /db §osubcommand§r"
     description: "Provides access to the SQLite database."
+  colors:
+    usage: "Usage: /colors"
+    description: "Displays all available color codes."
+  rank:
+    usage: "Usage: /rank §osubcommand§r"
+    description: "Provides an in-game interface for rank manipulation."
+  nick:
+    usage: "Usage: /nick [player] <nickname>"
+    description: "Allows you to set a custom name."

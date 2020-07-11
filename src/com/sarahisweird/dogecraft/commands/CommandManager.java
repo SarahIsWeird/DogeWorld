@@ -1,6 +1,5 @@
 package com.sarahisweird.dogecraft.commands;
 
-import com.sarahisweird.dogecraft.dbmanager.DBManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,10 +13,18 @@ public class CommandManager {
             return DatabaseCmds.execDBCmd(sender, args);
         }
 
+        else if (command.getName().equalsIgnoreCase("rank")) {
+            return RankCmds.execRankCmd(sender, args);
+        }
+
+        else if (command.getName().equalsIgnoreCase("nick")) {
+            return PlayerCmds.execNickCmd(sender, args);
+        }
+
         /* Commands with (sender instanceof Player) */
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage("/" + label + " can only be run as a player. Sorry!");
+            sender.sendMessage("§c/" + label + " can only be run as a player. Sorry!");
             return true;
         }
 
@@ -33,6 +40,10 @@ public class CommandManager {
             return PlayerCmds.execHealCmd(player);
         } else if (command.getName().equalsIgnoreCase("fly")) {
             return PlayerCmds.execFlyCmd(player);
+        }
+
+        else if (command.getName().equalsIgnoreCase("colors")) {
+            return UtilityCommands.execColorsCmd(player);
         }
 
         return false;

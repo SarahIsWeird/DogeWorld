@@ -30,4 +30,8 @@ public class Config {
     public static String getMessageColor(String rankName) {
         return Config.plugin.getConfig().getString("ranks." + rankName + ".message_color");
     }
+
+    public static boolean canFormatMessage(String rankName) {
+        return Config.plugin.getConfig().getBoolean("ranks." + rankName + ".colored_messages");
+    }
 }

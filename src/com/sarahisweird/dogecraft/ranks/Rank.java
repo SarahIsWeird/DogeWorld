@@ -1,6 +1,6 @@
 package com.sarahisweird.dogecraft.ranks;
 
-public class Rank {
+public abstract class Rank {
     private String prefix;
     private String nameColor;
     private String messageColor;
@@ -22,4 +22,6 @@ public class Rank {
     public String getMessageColor() {
         return this.messageColor;
     }
+
+    public abstract boolean canFormatMessages();
 }

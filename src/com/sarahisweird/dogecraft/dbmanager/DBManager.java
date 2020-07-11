@@ -37,8 +37,10 @@ public class DBManager {
         try {
             playersStmt.execute("DROP TABLE IF EXISTS players");
             playersStmt.execute("CREATE TABLE players (" +
-                    "UUID   CHAR(36) PRIMARY KEY NOT NULL, " +
-                    "flying TINYINT              NOT NULL)");
+                    "UUID     CHAR(36) PRIMARY KEY NOT NULL, " +
+                    "flying   TINYINT              NOT NULL, " +
+                    "rank     TINYINT              NOT NULL, " +
+                    "nickname TEXT                          )");
         } catch (SQLException e) {
             throw new DBException();
         }
@@ -52,7 +54,9 @@ public class DBManager {
 
             while (resultSet.next()) {
                 lines.add(resultSet.getString("UUID") + ": "
-                        + "flying(" + resultSet.getInt("flying") + ")");
+                        + "flying(" + resultSet.getInt("flying") + "), "
+                        + "rank(" + resultSet.getInt("rank") + "), "
+                        + "nickname(" + resultSet.getString("nickname") + ")");
             }
         } catch (SQLException e) {
             throw new DBException();
@@ -75,7 +79,8 @@ public class DBManager {
                 return;
             }
 
-            playersStmt.execute("INSERT INTO players (UUID, flying) VALUES ('" + uuid + "', 0);");
+            playersStmt.execute("INSERT INTO players (UUID, flying, rank, nickname) "
+                    + "VALUES ('" + uuid + "', 0, 0, '');");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DBException();
@@ -125,5 +130,42 @@ public class DBManager {
         }
 
         return retVal;
+    }
+
+    public static void setPlayerRank(Player player, int rankId) throws DBException {
+        String uuid = player.getUniqueId().toString();
+
+        try {
+            playersStmt.execute("UPDATE players SET rank = " + rankId + " WHERE UUID = '" + uuid + "'");
+        } catch (SQLException e) {
+            throw new DBException();
+        }
+    }
+
+    public static String getPlayerNickname(Player player) throws DBException {
+        String uuid = player.getUniqueId().toString();
+        String playerNick = "";
+
+        try {
+            ResultSet resultSet = playersStmt.executeQuery("SELECT nickname FROM players "
+                    + "WHERE UUID = '" + uuid + "'");
+            resultSet.next();
+
+            playerNick = resultSet.getString("nickname");
+        } catch (SQLException e) {
+            throw new DBException();
+        }
+
+        return playerNick;
+    }
+
+    public static void setPlayerNick(Player player, String nickname) throws DBException {
+        String uuid = player.getUniqueId().toString();
+
+        try {
+            playersStmt.execute("UPDATE players SET nickname = '" + nickname + "' WHERE UUID = '" + uuid + "'");
+        } catch (SQLException e) {
+            throw new DBException();
+        }
     }
 }

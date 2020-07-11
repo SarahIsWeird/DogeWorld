@@ -11,6 +11,7 @@ public class DatabaseCmds {
     private static String fmt(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
+
     public static boolean execDBCmd(CommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.sendMessage("Available subcommands: /db create, dump");
@@ -19,7 +20,7 @@ public class DatabaseCmds {
 
         if (args[0].equalsIgnoreCase("create")) {
             if (args.length < 2 || !args[1].equalsIgnoreCase("confirm")) {
-                sender.sendMessage(fmt("&c&oAre you really sure you want to create a new database? If a database"
+                sender.sendMessage(fmt("&c&oAre you really sure you want to create a new database? If a database "
                         + "already exists, it will be nuked!"));
                 sender.sendMessage(fmt("&c&oIf you're sure, type &c/db create confirm&o."));
                 return true;

@@ -11,3 +11,28 @@ ranks:
     prefix: "&3[&aMember&3]"
     name_color: "&7"
     message_color: ""
+    colored_messages: false
+  donator:
+    default: false
+    prefix: "&e[&6Donator&e]"
+    name_color: "&a"
+    message_color: "&7"
+    colored_messages: true
+  developer:
+    default: false
+    prefix: "&a&l{Developer}"
+    name_color: "&c"
+    message_color: "&b"
+    colored_messages: true
+  cm:
+    default: false
+    prefix: "&a&l{&b&lCM&a&l}"
+    name_color: "&9"
+    message_color: "&3"
+    colored_messages: true
+  owner:
+    default: false
+    prefix: "&4&l{Owner}"
+    name_color: "&6"
+    message_color: "&e"
+    colored_messages: true

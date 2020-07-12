@@ -1,6 +1,2 @@
-# DogeCraft
-Welcome to the DogeCraft repo!
-
-## To-Do List:
-* Optimize /rtp command
-* ...
+# DogeWorld
+Welcome to the DogeWorld repo!

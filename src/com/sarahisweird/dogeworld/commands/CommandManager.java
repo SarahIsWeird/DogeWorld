@@ -4,6 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class CommandManager {
 
     /**
@@ -31,6 +35,14 @@ public class CommandManager {
             return PlayerCmds.execNickCmd(sender, args);
         }
 
+        else if (command.getName().equalsIgnoreCase("colors")) {
+            return UtilityCmds.execColorsCmd(sender);
+        } else if (command.getName().equalsIgnoreCase("broadcast")
+                || command.getName().equalsIgnoreCase("bc")
+                || command.getName().equalsIgnoreCase("say")) {
+            return UtilityCmds.execBroadcastCommand(sender, args);
+        }
+
         /* Commands with (sender instanceof Player) */
 
         if (!(sender instanceof Player)) {
@@ -52,8 +64,16 @@ public class CommandManager {
             return PlayerCmds.execFlyCmd(player);
         }
 
-        else if (command.getName().equalsIgnoreCase("colors")) {
-            return UtilityCmds.execColorsCmd(player);
+        else if (command.getName().equalsIgnoreCase("town")) {
+            return TownCmds.execTownCmd(player, args);
+        }
+
+        else if (command.getName().equalsIgnoreCase("balance")
+                || command.getName().equalsIgnoreCase("bal")
+                || command.getName().equalsIgnoreCase("doge")
+                || command.getName().equalsIgnoreCase("b")
+                || command.getName().equalsIgnoreCase("d")) {
+            return BalanceCmds.execBalanceCmd(player, args);
         }
 
         return false;

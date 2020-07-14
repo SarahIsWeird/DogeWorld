@@ -29,3 +29,14 @@ commands:
   nick:
     usage: "Usage: /nick [player] <nickname>"
     description: "Allows you to set a custom name."
+  town:
+    usage: "Usage: /town"
+    description: "Provides an interface to town-related things."
+  balance:
+    usage: "Usage: /balance"
+    description: "Shows how much Doge you currently have."
+    aliases: ["bal", "doge", "b", "d"]
+  broadcast:
+    usage: "Usage: /broadcast <message...>"
+    description: "Broadcasts a server-wide message."
+    aliases: ["bc", "say"]

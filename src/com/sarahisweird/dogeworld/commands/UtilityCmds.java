@@ -1,6 +1,7 @@
 package com.sarahisweird.dogeworld.commands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class UtilityCmds {
@@ -8,15 +9,29 @@ public class UtilityCmds {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
-    public static boolean execColorsCmd(Player player) {
+    public static boolean execColorsCmd(CommandSender sender) {
         String colorMessage = "";
         for (int i = 0; i < 16; i++) {
             colorMessage += fmt("&" + Integer.toHexString(i)) + "&" + Integer.toHexString(i) + fmt("&r ");
         }
 
-        player.sendMessage("Colors: " + colorMessage);
+        sender.sendMessage("Colors: " + colorMessage);
 
-        player.sendMessage("§k&k§r §l&l§r §m&m§r §n&n§r §o&o§r");
+        sender.sendMessage("§k&k§r §l&l§r §m&m§r §n&n§r §o&o§r");
+
+        return true;
+    }
+
+    public static boolean execBroadcastCommand(CommandSender sender, String[] args) {
+        if (args.length == 0)
+            return false;
+
+        String message = "";
+
+        for (String str : args)
+            message += str + " ";
+
+        sender.getServer().broadcastMessage(fmt(message));
 
         return true;
     }

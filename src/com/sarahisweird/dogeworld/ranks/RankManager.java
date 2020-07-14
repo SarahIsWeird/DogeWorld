@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class RankManager {
-    public static Rank errorRank = new Rank("ERROR", "ERROR", "ERROR") {
+    public static Rank errorRank = new Rank("ERROR") {
         @Override
         public boolean canFormatMessages() {
             return false;
@@ -18,6 +18,10 @@ public class RankManager {
     private static DeveloperRank developerRank = new DeveloperRank();
     private static CMRank cmRank = new CMRank();
     private static OwnerRank ownerRank = new OwnerRank();
+    private static JuniorModeratorRank juniorModeratorRank = new JuniorModeratorRank();
+    private static ModeratorRank moderatorRank = new ModeratorRank();
+    private static JuniorHelperRank juniorHelperRank = new JuniorHelperRank();
+    private static HelperRank helperRank = new HelperRank();
 
     private static Rank rankIdToRank(int id) {
         switch (id) {
@@ -31,6 +35,14 @@ public class RankManager {
                 return cmRank;
             case 4:
                 return ownerRank;
+            case 5:
+                return juniorModeratorRank;
+            case 6:
+                return moderatorRank;
+            case 7:
+                return juniorHelperRank;
+            case 8:
+                return helperRank;
             default:
                 return errorRank;
         }
@@ -47,6 +59,14 @@ public class RankManager {
             return 3;
         } else if (rank instanceof OwnerRank) {
             return 4;
+        } else if (rank instanceof JuniorModeratorRank) {
+            return 5;
+        } else if (rank instanceof ModeratorRank) {
+            return 6;
+        } else if (rank instanceof JuniorHelperRank) {
+            return 7;
+        } else if (rank instanceof HelperRank) {
+            return 8;
         }
 
         return -1;
@@ -111,6 +131,14 @@ public class RankManager {
             return cmRank;
         } else if (name.equalsIgnoreCase("owner")) {
             return ownerRank;
+        } else if (name.equalsIgnoreCase("juniormod")) {
+            return juniorModeratorRank;
+        } else if (name.equalsIgnoreCase("moderator")) {
+            return moderatorRank;
+        } else if (name.equalsIgnoreCase("juniorhelper")) {
+            return juniorHelperRank;
+        } else if (name.equalsIgnoreCase("helper")) {
+            return helperRank;
         } else {
             return errorRank;
         }

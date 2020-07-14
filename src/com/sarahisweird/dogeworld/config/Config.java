@@ -10,6 +10,8 @@ public class Config {
      * @param plugin The main class of the plugin.
      */
     public static void load(DogeWorld plugin) {
+        Config.plugin = plugin;
+
         Config.plugin.saveDefaultConfig();
     }
 
@@ -54,6 +56,15 @@ public class Config {
      */
     public static String getMessageColor(String rankName) {
         return Config.plugin.getConfig().getString("ranks." + rankName + ".message_color");
+    }
+
+    /**
+     * Fetches the rank abbreviation.
+     * @param rankName The rank to be checked.
+     * @return The abbreviation, formatted with an ampersand (&).
+     */
+    public static String getRankAbbreviation(String rankName) {
+        return Config.plugin.getConfig().getString("ranks." + rankName + ".abbreviation");
     }
 
     /**

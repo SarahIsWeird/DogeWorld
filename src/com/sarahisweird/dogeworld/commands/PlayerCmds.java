@@ -3,6 +3,7 @@ package com.sarahisweird.dogeworld.commands;
 import com.sarahisweird.dogeworld.dbmanager.DBException;
 import com.sarahisweird.dogeworld.dbmanager.DBManager;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -18,6 +19,11 @@ public class PlayerCmds {
     }
 
     public static boolean execFlyCmd(Player player) {
+        if (player.getGameMode() != GameMode.SURVIVAL) {
+            player.sendMessage("§eYou don't really want to change your ability to fly, do you?");
+            return true;
+        }
+
         boolean flying = false;
 
         try {
@@ -62,6 +68,7 @@ public class PlayerCmds {
             return true;
         } else if (args.length == 2) {
             Player player;
+
             try {
                 player = sender.getServer().getPlayer(args[0]);
             } catch (Exception e) {
@@ -76,7 +83,7 @@ public class PlayerCmds {
                 return true;
             }
 
-            player.sendMessage("§aSuccessfully changed " + args[0] + "'s nickname to "
+            sender.sendMessage("§aSuccessfully changed " + args[0] + "'s nickname to "
                     + ChatColor.translateAlternateColorCodes('&', args[1] + "&r") + ".");
             return true;
         } else {

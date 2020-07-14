@@ -4,8 +4,7 @@ import com.sarahisweird.dogeworld.config.Config;
 
 public class DeveloperRank extends Rank {
     public DeveloperRank() {
-        super(Config.getRankPrefix("developer"), Config.getRankNameColor("developer"),
-                Config.getMessageColor("developer"));
+        super("developer");
     }
 
     @Override

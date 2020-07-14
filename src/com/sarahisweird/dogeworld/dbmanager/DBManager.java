@@ -1,5 +1,6 @@
 package com.sarahisweird.dogeworld.dbmanager;
 
+import com.sarahisweird.dogeworld.towns.Town;
 import com.sun.istack.internal.Nullable;
 import org.bukkit.entity.Player;
 
@@ -31,8 +32,6 @@ public class DBManager {
      */
     public static void disable() {
         try {
-            playersStmt.close();
-
             playersConn.commit();
             playersConn.close();
         } catch (SQLException e) {
@@ -51,18 +50,39 @@ public class DBManager {
                     "UUID     CHAR(36) PRIMARY KEY NOT NULL, " +
                     "flying   TINYINT              NOT NULL, " +
                     "rank     TINYINT              NOT NULL, " +
-                    "nickname TEXT                          )");
+                    "nickname TEXT                         , " +
+                    "balance  INT2                 NOT NULL)");
         } catch (SQLException e) {
             throw new DBException();
         }
     }
 
     /**
-     * Dumps the database contents.
-     * @return A list of the contents. Formatted, each line is a row in the table.
-     * @throws DBException Only thrown if the database couldn't be created.
+     * Creates the "towns" table in the database. Will delete any previous table named "towns".
+     * @throws DBException
      */
-    public static List<String> dump() throws DBException {
+    public static void createTownsDatabase() throws DBException {
+        try {
+            playersStmt.execute("DROP TABLE IF EXISTS towns");
+            playersStmt.execute("CREATE TABLE towns (" +
+                    "town_id  INTEGER PRIMARY KEY  AUTOINCREMENT, " +
+                    "name     TEXT                 NOT NULL, " +
+                    "prefix   TEXT                 NOT NULL, " +
+                    "owner    TEXT                 NOT NULL, " +
+                    "members  TEXT                 NOT NULL, " +
+                    "balance  INT4                 NOT NULL)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException();
+        }
+    }
+
+    /**
+     * Dumps the player database contents.
+     * @return A list of the contents. Formatted, each line is a row in the table.
+     * @throws DBException Only thrown if the database couldn't be accessed.
+     */
+    public static List<String> dumpPlayers() throws DBException {
         List<String> lines = new ArrayList<>();
 
         try {
@@ -72,7 +92,34 @@ public class DBManager {
                 lines.add(resultSet.getString("UUID") + ": "
                         + "flying(" + resultSet.getInt("flying") + "), "
                         + "rank(" + resultSet.getInt("rank") + "), "
-                        + "nickname(" + resultSet.getString("nickname") + ")");
+                        + "nickname(" + resultSet.getString("nickname") + "), "
+                        + "balance(" + resultSet.getInt("balance") + ")");
+            }
+        } catch (SQLException e) {
+            throw new DBException();
+        }
+
+        return lines;
+    }
+
+    /**
+     * Dumps the town database contents.
+     * @return A list of the contents. Formatted, each line is a row in the table.
+     * @throws DBException Only thrown if the database couldn't be accessed.
+     */
+    public static List<String> dumpTowns() throws DBException {
+        List<String> lines = new ArrayList<>();
+
+        try {
+            ResultSet resultSet = playersStmt.executeQuery("SELECT * FROM towns");
+
+            while (resultSet.next()) {
+                lines.add(resultSet.getInt("town_id") + ": "
+                        + "name(" + resultSet.getString("name") + "), "
+                        + "prefix(" + resultSet.getString("prefix") + "), "
+                        + "owner(" + resultSet.getString("owner") + "), "
+                        + "members(" + resultSet.getString("members") + "), "
+                        + "balance(" + resultSet.getInt("balance") + ")");
             }
         } catch (SQLException e) {
             throw new DBException();
@@ -85,9 +132,10 @@ public class DBManager {
      * Prepares future calls for a player to the database.
      * Must be called before any requests for a player are made, or silent errors might creep up.
      * @param player The player to load.
+     * @return Whether new data for the player was created.
      * @throws DBException Thrown if the player couldn't be loaded, possibly because loadDatabase() wasn't called.
      */
-    public static void loadPlayer(Player player) throws DBException {
+    public static boolean loadPlayer(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
 
         try {
@@ -98,11 +146,13 @@ public class DBManager {
             if (resultSet.getInt(1) == 1) {
                 resultSet.close();
 
-                return;
+                return false;
             }
 
-            playersStmt.execute("INSERT INTO players (UUID, flying, rank, nickname) "
-                    + "VALUES ('" + uuid + "', 0, 0, '');");
+            playersStmt.execute("INSERT INTO players (UUID, flying, rank, nickname, balance) "
+                    + "VALUES ('" + uuid + "', 0, 0, '', 20);");
+
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DBException();
@@ -228,5 +278,144 @@ public class DBManager {
         } catch (SQLException e) {
             throw new DBException();
         }
+    }
+
+    /**
+     * Loads every town from the database. This is a heavy function, only use this on startup and cache the towns.
+     * @return A list of every town.
+     * @throws DBException Only thrown if the lookup failed, possibly because loadDatabase() wasn't called.
+     */
+    public static List<Town> loadTowns() throws DBException {
+        List<Town> towns = new ArrayList<>();
+
+        try {
+            ResultSet resultSet = playersStmt.executeQuery("SELECT * FROM towns");
+
+            while (resultSet.next()) {
+                towns.add(new Town(resultSet.getString("name"), resultSet.getString("prefix"),
+                        resultSet.getString("owner"))
+                        .deserializeMembers(resultSet.getString("members")));
+            }
+        } catch (SQLException e) {
+            throw new DBException();
+        }
+
+        return towns;
+    }
+
+    /**
+     * Adds a town to the database.
+     * @throws DBException Only thrown if the addition failed, possibly because loadDatabase() wasn't called.
+     */
+    public static void addTown(Town town) throws DBException {
+        String townName = town.name;
+        String townPrefix = town.prefix;
+        String townOwner = town.owner;
+        String townMembers = town.serializeMembers();
+
+        try {
+            playersStmt.execute("INSERT INTO towns (town_id, name, prefix, owner, members) "
+                    + "VALUES (NULL, '" + townName + "', '" + townPrefix + "', '"
+                    + townOwner + "', '" + townMembers + "')");
+        } catch (SQLException e) {
+            throw new DBException();
+        }
+    }
+
+    /**
+     * Removes a town from the database.
+     * @throws DBException Thrown if the town doesn't exist.
+     */
+    public static void removeTown(Town town) throws DBException {
+        String townName = town.name;
+
+        try {
+            playersStmt.execute("DELETE FROM towns WHERE name = '" + townName + "'");
+        } catch (SQLException e) {
+            throw new DBException();
+        }
+    }
+
+    /**
+     * Fetches a player's balance from the database.
+     * @param player The player to be checked.
+     * @throws DBException Thrown if a player doesn't exist in the database.
+     */
+    public static int getPlayerBalance(Player player) throws DBException {
+        String uuid = player.getUniqueId().toString();
+
+        try {
+            ResultSet resultSet = playersStmt.executeQuery("SELECT balance FROM players WHERE "
+                    + "UUID = '" + uuid + "'");
+
+            resultSet.next();
+
+            return resultSet.getInt("balance");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException();
+        }
+    }
+
+    /**
+     * Sets a player's balance in the database.
+     * @param player The player to be modified.
+     * @param amount The amount to set.
+     * @throws DBException Thrown if a player doesn't exist in the database.
+     */
+    public static void setPlayerBalance(Player player, int amount) throws DBException {
+        String uuid = player.getUniqueId().toString();
+
+        try {
+            playersStmt.execute("UPDATE players SET balance = " + amount + " WHERE UUID = '" + uuid + "'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException();
+        }
+    }
+
+    /**
+     * Adds a specific amount to a player's balance.
+     * @param player The player to add to.
+     * @param amount The amount to add.
+     * @throws DBException Thrown if the player doesn't exist.
+     */
+    public static void addBalance(Player player, int amount) throws DBException {
+        String uuid = player.getUniqueId().toString();
+
+        try {
+            int newBalance = getPlayerBalance(player) + amount;
+
+            playersStmt.execute("UPDATE players SET balance = " + newBalance + " WHERE UUID = '" + uuid + "'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException();
+        }
+    }
+
+    /**
+     * Removes a specific amount from a player's balance.
+     * @param player The player to remove from.
+     * @param amount The amount to remove.
+     * @return If this function returns false, the player would go into negative when completing this transaction, therefore it is not executed.
+     * @throws DBException Thrown if the player doesn't exist.
+     */
+    public static boolean removeBalance(Player player, int amount) throws DBException{
+        String uuid = player.getUniqueId().toString();
+
+        try {
+            int newBalance = getPlayerBalance(player) - amount;
+
+            if (newBalance < 0) {
+                return false;
+            }
+
+            playersStmt.execute("UPDATE players SET balance = " + newBalance + " WHERE UUID = '" + uuid + "'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DBException();
+        }
+
+        return true;
     }
 }

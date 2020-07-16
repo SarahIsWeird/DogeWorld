@@ -1,70 +1,25 @@
+towns:
+  size_min:
+    x: 10
+    y: 10
+  setup_cost: 500
+  setup_size_max: 625
+
+economy:
+  pup: 0.001 # The smallest currency unit on the server (similar to a Satoshi)
+
 ranklist:
-  - Member
-  - Donator
-  - Junior Helper
-  - Helper
-  - Junior Mod
-  - Moderator
-  - Developer
-  - CM
-  - Owner
+  - owner
+  - developer
+  - cm
+  - moderator
+  - juniormod
+  - helper
+  - juniorhelper
+  - donator
+  - member
 
 ranks:
-  member:
-    default: true
-    prefix: "&8&r&3[&aMember&3]"
-    abbreviation: "&3[&aM&3]"
-    name_color: "&6"
-    message_color: "&7"
-    colored_messages: false
-  donator:
-    default: false
-    prefix: "&7&r&e[&6Donator&e]"
-    abbreviation: "&e[&6D&e]"
-    name_color: "&e"
-    message_color: "&7"
-    colored_messages: true
-  juniorhelper:
-    default: false
-    prefix: "&6&r&a{Junior Helper}"
-    abbreviation: "&a{JH}"
-    name_color: "&2"
-    message_color: "&3"
-    colored_messages: true
-  helper:
-    default: false
-    prefix: "&5&r&a&l{Helper}"
-    abbreviation: "&a&l{H}"
-    name_color: "&6"
-    message_color: "&e"
-    colored_messages: true
-  juniormod:
-    default: false
-    prefix: "&9&l{&b&lJunior Mod&9&l}"
-    abbreviation: "&9&l{&b&lJMod&9&l}"
-    name_color: "&e"
-    message_color: "&9&o"
-    colored_messages: true
-  moderator:
-    default: false
-    prefix: "&9&l{Moderator}"
-    abbreviation: "&9&l{Mod}"
-    name_color: "&e"
-    message_color: "&9&o"
-  developer:
-    default: false
-    prefix: "&4&l{&c&lDeveloper&4&l}"
-    abbreviation: "&4&l{&c&lDev&4&l}"
-    name_color: "&d"
-    message_color: "&c&o"
-    colored_messages: true
-  cm:
-    default: false
-    prefix: "&a&l{&b&lCM&a&l}"
-    abbreviation: "&a&l{&b&lCM&a&l}"
-    name_color: "&9"
-    message_color: "&3&o"
-    colored_messages: true
   owner:
     default: false
     prefix: "&4&l{Owner}"
@@ -72,3 +27,85 @@ ranks:
     name_color: "&6"
     message_color: "&e&o"
     colored_messages: true
+    order: "a"
+
+  developer:
+    default: false
+    prefix: "&4&l{&c&lDeveloper&4&l}"
+    abbreviation: "&4&l{&c&lDev&4&l}"
+    name_color: "&d"
+    message_color: "&c&o"
+    colored_messages: true
+    order: "b"
+
+  cm:
+    default: false
+    prefix: "&a&l{&b&lCM&a&l}"
+    abbreviation: "&a&l{&b&lCM&a&l}"
+    name_color: "&9"
+    message_color: "&3&o"
+    colored_messages: true
+    order: "c"
+
+  moderator:
+    default: false
+    prefix: "&9&l{Moderator}"
+    abbreviation: "&9&l{Mod}"
+    name_color: "&e"
+    message_color: "&9&o"
+    colored_messages: true
+    order: "d"
+
+  juniormod:
+    default: false
+    prefix: "&9&l{&b&lJunior Mod&9&l}"
+    abbreviation: "&9&l{&b&lJMod&9&l}"
+    name_color: "&e"
+    message_color: "&9&o"
+    colored_messages: true
+    order: "e"
+
+  helper:
+    default: false
+    prefix: "&a&l{Helper}"
+    abbreviation: "&a&l{H}"
+    name_color: "&6"
+    message_color: "&e"
+    colored_messages: true
+    order: "f"
+
+  juniorhelper:
+    default: false
+    prefix: "&a{Junior Helper}"
+    abbreviation: "&a{JH}"
+    name_color: "&2"
+    message_color: "&3"
+    colored_messages: true
+    order: "g"
+
+  donator:
+    default: false
+    prefix: "&e[&6Donator&e]"
+    abbreviation: "&e[&6D&e]"
+    name_color: "&e"
+    message_color: "&7"
+    colored_messages: true
+    order: "h"
+
+  member:
+    default: true
+    prefix: "&3[&aMember&3]"
+    abbreviation: "&3[&aM&3]"
+    name_color: "&6"
+    message_color: "&7"
+    colored_messages: false
+    order: "i"
+
+  ERROR:
+    default: false
+    prefix: "ERROR"
+    abbreviation: "ERROR"
+    name_color: "ERROR"
+    message_color: "ERROR"
+    colored_messages: false
+    order: "z"

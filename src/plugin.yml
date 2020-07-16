@@ -1,7 +1,7 @@
-name: DogeWorld
+name: Dogeverse
 version: 0.4
 author: Sarah Klocke (@SarahIsWeird)
-main: com.sarahisweird.dogeworld.DogeWorld
+main: com.sarahisweird.dogeverse.Dogeverse
 api-version: 1.16
 
 commands:

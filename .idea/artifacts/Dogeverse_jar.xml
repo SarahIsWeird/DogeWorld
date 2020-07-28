@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Dogeverse:jar">
+    <output-path>$PROJECT_DIR$/../Dogeverse Server/plugins</output-path>
+    <root id="archive" name="Dogeverse.jar">
+      <element id="module-output" name="Dogeverse" />
+      <element id="file-copy" path="$PROJECT_DIR$/../Dogeverse Server/Spigot/Spigot-API/target/spigot-api-1.16.1-R0.1-SNAPSHOT-shaded.jar" />
+    </root>
+  </artifact>
+</component>

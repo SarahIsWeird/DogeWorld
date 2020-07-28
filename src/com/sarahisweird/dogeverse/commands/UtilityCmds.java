@@ -1,5 +1,6 @@
 package com.sarahisweird.dogeverse.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -32,6 +33,11 @@ public class UtilityCmds {
 
         sender.getServer().broadcastMessage(fmt(message));
 
+        return true;
+    }
+
+    public static boolean execRestartCommand(CommandSender sender) {
+        Bukkit.spigot().restart();
         return true;
     }
 }

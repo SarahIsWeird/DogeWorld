@@ -27,7 +27,7 @@ public class DatabaseCmds {
 
             /* Player database creation */
             if (args[1].equalsIgnoreCase("players")) {
-                if (!args[2].equalsIgnoreCase("confirm") && !args[2].equalsIgnoreCase("c")) {
+                if (args.length < 3 || (!args[2].equalsIgnoreCase("confirm") && !args[2].equalsIgnoreCase("c"))) {
                     sender.sendMessage(fmt("&c&oAre you really sure you want to create a new player database? If it"
                             + " already exists, it will be deleted!"));
                     sender.sendMessage(fmt("&c&oIf you are sure, please type"

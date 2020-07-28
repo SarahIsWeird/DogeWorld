@@ -81,7 +81,9 @@ public class BalanceCmds {
                 return true;
             }
 
-            if (args[2].split(".")[1].length() > 3) {
+            String[] number = args[2].split("\\.");
+
+            if (number.length > 2 && number[1].length() > 3) {
                 player.sendMessage("§eSorry, but the maximum precision allowed is "
                         + 1 / Config.getPupsInDoge() + ".");
                 return true;

@@ -1,12 +1,11 @@
 package com.sarahisweird.dogeverse.config;
 
 import com.sarahisweird.dogeverse.Dogeverse;
-import com.sun.javafx.geom.Vec2d;
 
 public class Config {
     private static Dogeverse plugin;
 
-    private static Vec2d minTownSize;
+    private static double[] minTownSize;
     private static int townSetupCost;
     private static int maxTownSetupSize;
 
@@ -20,10 +19,10 @@ public class Config {
         Config.plugin.saveDefaultConfig();
 
 
-        minTownSize = new Vec2d();
+        minTownSize = new double[2];
 
-        minTownSize.x = Config.plugin.getConfig().getDouble("towns.size_min.x");
-        minTownSize.y = Config.plugin.getConfig().getDouble("towns.size_min.y");
+        minTownSize[0] = Config.plugin.getConfig().getDouble("towns.size_min.x");
+        minTownSize[1] = Config.plugin.getConfig().getDouble("towns.size_min.y");
 
         townSetupCost = Config.plugin.getConfig().getInt("towns.setup_cost");
         maxTownSetupSize = Config.plugin.getConfig().getInt("towns.setup_size_max");
@@ -111,7 +110,7 @@ public class Config {
      * Fetches the minimum town size from the config.
      * @return The minimum town size.
      */
-    public static Vec2d getMinimumTownSize() {
+    public static double[] getMinimumTownSize() {
         return Config.minTownSize;
     }
 

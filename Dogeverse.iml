@@ -12,7 +12,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://E:/1.16 Spigot Server/Spigot/Spigot-API/target/spigot-api-1.16.1-R0.1-SNAPSHOT-shaded.jar!/" />
+          <root url="jar://$USER_HOME$/Dogeverse Server/Spigot/Spigot-API/target/spigot-api-1.16.1-R0.1-SNAPSHOT-shaded.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/annotations-19.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

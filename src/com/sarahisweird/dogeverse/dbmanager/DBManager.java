@@ -2,8 +2,9 @@ package com.sarahisweird.dogeverse.dbmanager;
 
 import com.sarahisweird.dogeverse.config.Config;
 import com.sarahisweird.dogeverse.towns.Town;
-import com.sun.istack.internal.Nullable;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class DBManager {
      */
     public static void disable() {
         try {
+            playersStmt.close();
             playersConn.commit();
             playersConn.close();
         } catch (SQLException e) {
@@ -215,7 +217,7 @@ public class DBManager {
             ResultSet resultSet = playersStmt.executeQuery("SELECT rank FROM players WHERE UUID='" + uuid + "'");
             resultSet.next();
 
-            retVal = resultSet.getInt(1);
+            retVal = resultSet.getInt("rank");
         } catch (SQLException e) {
             throw new DBException();
         }
@@ -294,7 +296,7 @@ public class DBManager {
 
             while (resultSet.next()) {
                 towns.add(new Town(resultSet.getString("name"), resultSet.getString("prefix"),
-                        resultSet.getString("owner"))
+                        resultSet.getString("owner"), resultSet.getInt("balance"))
                         .deserializeMembers(resultSet.getString("members")));
             }
         } catch (SQLException e) {
@@ -305,20 +307,31 @@ public class DBManager {
     }
 
     /**
-     * Adds a town to the database.
-     * @throws DBException Only thrown if the addition failed, possibly because loadDatabase() wasn't called.
+     * Adds a town to the database, or, if it exists, updates it.
+     * @throws DBException Only thrown if the addition/update failed, possibly because loadDatabase() wasn't called.
      */
     public static void addTown(Town town) throws DBException {
         String townName = town.name;
         String townPrefix = town.prefix;
         String townOwner = town.owner;
         String townMembers = town.serializeMembers();
+        int townBalance = town.getBalance();
 
         try {
-            playersStmt.execute("INSERT INTO towns (town_id, name, prefix, owner, members) "
-                    + "VALUES (NULL, '" + townName + "', '" + townPrefix + "', '"
-                    + townOwner + "', '" + townMembers + "')");
+            ResultSet resultSet = playersStmt.executeQuery("SELECT COUNT(town_id) FROM towns WHERE name = '"
+                    + townName + "';");
+            resultSet.next();
+
+            if (resultSet.getInt(1) == 1) {
+                playersStmt.execute("UPDATE towns SET owner = '" + townOwner + "', members = '" + townMembers
+                        + "', balance = " + townBalance + " WHERE name = '" + townName + "';");
+            } else {
+                playersStmt.execute("INSERT INTO towns (town_id, name, prefix, owner, members, balance) "
+                        + "VALUES (NULL, '" + townName + "', '" + townPrefix + "', '"
+                        + townOwner + "', '" + townMembers + "', " + townBalance + ")");
+            }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DBException();
         }
     }
@@ -342,6 +355,7 @@ public class DBManager {
      * @param player The player to be checked.
      * @throws DBException Thrown if a player doesn't exist in the database.
      */
+    @NotNull
     public static float getPlayerBalance(Player player) throws DBException {
         String uuid = player.getUniqueId().toString();
 
@@ -404,7 +418,7 @@ public class DBManager {
      * @return If this function returns false, the player would go into negative when completing this transaction, therefore it is not executed.
      * @throws DBException Thrown if the player doesn't exist.
      */
-    public static boolean removeBalance(Player player, int amount) throws DBException{
+    public static boolean removeBalance(Player player, float amount) throws DBException{
         String uuid = player.getUniqueId().toString();
 
         try {

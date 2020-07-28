@@ -5,6 +5,7 @@ import com.sarahisweird.dogeverse.commands.TownCmds;
 import com.sarahisweird.dogeverse.config.Config;
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
+import com.sarahisweird.dogeverse.guis.GUIManager;
 import com.sarahisweird.dogeverse.ranks.Rank;
 import com.sarahisweird.dogeverse.ranks.RankManager;
 import com.sarahisweird.dogeverse.tasks.UpdatePlayerCountNextTick;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dogeverse extends JavaPlugin implements Listener {
+    GUIManager guiManager = new GUIManager();
 
     // Alias for brevity
     private String fmt(String msg) {
@@ -36,7 +38,7 @@ public class Dogeverse extends JavaPlugin implements Listener {
         Config.load(this);
 
         this.getServer().getPluginManager().registerEvents(this, this);
-        this.getServer().getPluginManager().registerEvents(TownCmds.townGui, this);
+        this.getServer().getPluginManager().registerEvents(guiManager, this);
         System.out.println("Successfully registered event listeners.");
 
         DBManager.loadDatabase();
@@ -86,6 +88,11 @@ public class Dogeverse extends JavaPlugin implements Listener {
         }
 
         Rank rank = RankManager.getRank(player);
+
+        if (rank == null) {
+            rank = RankManager.rankNameToRank("member");
+        }
+
         String order = rank.getOrder();
 
         this.getServer()

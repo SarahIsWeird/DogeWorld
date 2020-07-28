@@ -14,18 +14,22 @@ public class Town {
     /* A list of UUIDs. */
     private List<String> members;
 
+    private int balance;
+
     /**
      * Creates the town instance.
      * @param name The name of the town.
      * @param prefix The prefix of the town.
      * @param owner The owner of the town, provided as an UUID.
      */
-    public Town(String name, String prefix, String owner) {
+    public Town(String name, String prefix, String owner, int balance) {
         this.name = name;
         this.owner = owner;
         this.prefix = prefix;
 
         this.members = new ArrayList<>();
+
+        this.balance = balance;
     }
 
     /**
@@ -107,5 +111,27 @@ public class Town {
      */
     public boolean isMember(Player player) {
         return this.members.contains(player.getUniqueId().toString());
+    }
+
+    public int getBalance() {
+        return this.balance;
+    }
+
+    public void setBalance(int newBalance) {
+        this.balance = newBalance;
+    }
+
+    public void addBalance(int amount) {
+        this.balance += amount;
+    }
+
+    public boolean removeBalance(int amount) {
+        int newAmount = this.balance - amount;
+
+        if (newAmount < 0)
+            return false;
+
+        this.setBalance(newAmount);
+        return true;
     }
 }

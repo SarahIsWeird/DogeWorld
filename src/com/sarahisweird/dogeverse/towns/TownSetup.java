@@ -15,10 +15,11 @@ public class TownSetup {
     }
 
     private boolean finalizeTown() {
-        Town town = new Town(this.townName, this.townPrefix, this.player.getUniqueId().toString());
+        Town town = new Town(this.townName, this.townPrefix, this.player.getUniqueId().toString(), 0);
         town.addMember(this.player);
 
         TownManager.addTown(town);
+        TownManager.save();
 
         this.cancelled = true;
 

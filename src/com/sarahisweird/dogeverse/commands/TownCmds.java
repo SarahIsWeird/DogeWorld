@@ -1,20 +1,19 @@
 package com.sarahisweird.dogeverse.commands;
 
-import com.sarahisweird.dogeverse.inventories.TownGui;
+import com.sarahisweird.dogeverse.guis.GUIManager;
+import com.sarahisweird.dogeverse.guis.InventoryTypes;
 import com.sarahisweird.dogeverse.towns.Town;
 import com.sarahisweird.dogeverse.towns.TownManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class TownCmds {
-    public static final TownGui townGui = new TownGui();
-
     private static String fmt(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
     public static boolean execTownCmd(Player player, String[] args) {
         if (args.length == 0) {
-            townGui.openInventory(player);
+            GUIManager.openInventory(player, InventoryTypes.MAIN);
             return true;
         }
 

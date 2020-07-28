@@ -2,9 +2,9 @@ package com.sarahisweird.dogeverse.ranks;
 
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
-import com.sun.istack.internal.Nullable;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +37,6 @@ public class RankManager {
      */
     @Nullable
     private static Rank rankIdToRank(int id) {
-        if ((id < 0) || (ranks.size() > id))
-            return null;
-
         return ranks.get(id);
     }
 
@@ -105,7 +102,7 @@ public class RankManager {
     @Nullable
     public static Rank rankNameToRank(String name) {
         for (Rank rank : ranks) {
-            if (rank.getName() == name)
+            if (rank.getName().equals(name))
                 return rank;
         }
 

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Dogeverse:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="590005f1-dd58-4170-b9c8-61d8ba11903d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/guis/DepositInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/guis/GUIManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/guis/InventoryTypes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/guis/MainInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/guis/TreasuryInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/guis/WithdrawInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/inventories/DepositInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/inventories/DogeInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/inventories/GUIManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/inventories/MainInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/inventories/TreasuryInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dogeverse.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Dogeverse.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DogeCraft/plugin.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/Dogeverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/Dogeverse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/BalanceCmds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/BalanceCmds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/DatabaseCmds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/DatabaseCmds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/TeleportCmds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/TeleportCmds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/TownCmds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/TownCmds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/UtilityCmds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/commands/UtilityCmds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/config/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/dbmanager/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/dbmanager/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/inventories/TownGui.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/ranks/RankManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/ranks/RankManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/towns/Town.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/towns/Town.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/towns/TownManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/towns/TownManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/towns/TownSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sarahisweird/dogeverse/towns/TownSetup.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1eEMRTom17zBKaH3Ec3q6wTZnO3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="true" />
+    <property name="Repository.Attach.JavaDocs" value="true" />
+    <property name="Repository.Attach.Sources" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Dogeverse Server/plugins" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sarah\DogeCraft\src" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="590005f1-dd58-4170-b9c8-61d8ba11903d" name="Default Changelist" comment="" />
+      <created>1593882290483</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593882290483</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/DogeCraft-Revamped" />
+    </ignored-roots>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="726" y="244" key="#Auto_Import" timestamp="1595769370612">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="726" y="244" key="#Auto_Import/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595769370612" />
+    <state x="586" y="260" width="632" height="599" key="#Notifications" timestamp="1594230328137">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="586" y="260" width="632" height="599" key="#Notifications/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594230328137" />
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1595717810562">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595717810562" />
+    <state x="690" y="330" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1593883084666">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="690" y="330" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593883084666" />
+    <state x="329" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1595695822980">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="329" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595695822980" />
+    <state x="690" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594601082952">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="690" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594601082952" />
+    <state x="666" y="263" key="FileChooserDialogImpl" timestamp="1595883413557">
+      <screen x="0" y="0" width="1920" height="1009" />
+    </state>
+    <state x="666" y="263" key="FileChooserDialogImpl/0.0.1920.1009/1920.0.1920.1080@0.0.1920.1009" timestamp="1595883413557" />
+    <state x="666" y="281" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594677723624" />
+    <state x="414" y="152" width="1026" height="857" key="SettingsEditor" timestamp="1595965426705">
+      <screen x="0" y="0" width="1920" height="1009" />
+    </state>
+    <state x="414" y="152" width="1026" height="857" key="SettingsEditor/0.0.1920.1009/1920.0.1920.1080@0.0.1920.1009" timestamp="1595965426705" />
+    <state x="414" y="169" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594738270093" />
+    <state x="667" y="392" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1595868730656">
+      <screen x="0" y="0" width="1920" height="1009" />
+    </state>
+    <state x="667" y="392" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1009/1920.0.1920.1080@0.0.1920.1009" timestamp="1595868730656" />
+    <state x="769" y="454" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594590068559">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="769" y="454" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594590068559" />
+    <state x="667" y="139" width="585" height="801" key="find.popup" timestamp="1594163459794">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="667" y="139" width="585" height="801" key="find.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594163459794" />
+    <state x="342" y="160" key="new project wizard" timestamp="1594775320542">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="342" y="160" key="new project wizard/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1594775320542" />
+    <state x="616" y="250" key="run.anything.popup" timestamp="1593888049050">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1593888049050" />
+    <state x="623" y="220" width="672" height="634" key="search.everywhere.popup" timestamp="1595951090356">
+      <screen x="0" y="0" width="1920" height="1009" />
+    </state>
+    <state x="623" y="220" width="672" height="634" key="search.everywhere.popup/0.0.1920.1009/1920.0.1920.1080@0.0.1920.1009" timestamp="1595951090356" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1595769272002" />
+  </component>
+</project>

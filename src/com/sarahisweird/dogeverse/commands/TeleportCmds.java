@@ -1,5 +1,7 @@
 package com.sarahisweird.dogeverse.commands;
 
+import com.sarahisweird.dogeverse.dbmanager.DBException;
+import com.sarahisweird.dogeverse.dbmanager.DBManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -13,6 +15,19 @@ public class TeleportCmds {
     private static final int bound = 30000;
 
     public static boolean execRandomTeleportCmd(Player sender) {
+        try {
+            if (DBManager.getPlayerBalance(sender) < 10) {
+                sender.sendMessage("§cYou need 10 Doge to execute /rtp.");
+                return true;
+            }
+
+            DBManager.removeBalance(sender, 10);
+        } catch (DBException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
         Date now = new Date();
         Random rnd = new Random();
 

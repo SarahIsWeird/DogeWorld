@@ -12,15 +12,16 @@
 
 ### To-Do (Low priority)
 - [x] Show town prefix in chat in front of name
-- [ ] Add doge withdraw message after 5k for players
-- [ ] Add doge withdraw message after 100k for towns
+- [ ] Add a doge withdraw message after 5k for players
+- [ ] Add a doge withdraw message after 100k for towns
 - [ ] Add vote rewards
 
 ### Optimizations (Low priority)
 - [ ] Cache players
 - [ ] Cache towns
 - [ ] Optimize /rtp
+- [x] Use Logger system instead of ``System.out.println("");``
 
 ### Bugfixes
-- [ ] Make town balance save on shutdown
+- [x] Make town balance save on shutdown
 - [ ] Make fees for some commands work

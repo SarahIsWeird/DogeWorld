@@ -46,6 +46,14 @@ public class TownManager {
             }
         }
 
+        for (Town town : towns) {
+            try {
+                DBManager.addTown(town);
+            } catch (DBException e) {
+                e.printStackTrace();
+            }
+        }
+
         for (Town town : removedTowns) {
             try {
                 DBManager.removeTown(town);

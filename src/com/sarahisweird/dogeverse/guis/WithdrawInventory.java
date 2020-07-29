@@ -140,7 +140,7 @@ public class WithdrawInventory {
 
                 try {
                     DBManager.addBalance(player, (float) playerData);
-                    TownManager.getTown(player).setBalance(townBalance - playerData);
+                    TownManager.getTown(player).removeBalance(playerData);
                 } catch (DBException dbException) {
                     dbException.printStackTrace();
 

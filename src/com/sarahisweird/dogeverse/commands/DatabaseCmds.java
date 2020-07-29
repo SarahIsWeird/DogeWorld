@@ -2,6 +2,7 @@ package com.sarahisweird.dogeverse.commands;
 
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
+import com.sarahisweird.dogeverse.towns.TownManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -106,6 +107,11 @@ public class DatabaseCmds {
                 }
             }
 
+            return true;
+        } else if (args[0].equalsIgnoreCase("save")) {
+            TownManager.save();
+
+            sender.sendMessage("§aSuccessfully saved the database.");
             return true;
         }
 

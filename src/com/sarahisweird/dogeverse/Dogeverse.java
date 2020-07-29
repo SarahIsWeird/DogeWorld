@@ -24,9 +24,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Dogeverse extends JavaPlugin implements Listener {
     GUIManager guiManager = new GUIManager();
+
+    public static Logger logger;
 
     // Alias for brevity
     private String fmt(String msg) {
@@ -35,31 +38,33 @@ public class Dogeverse extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        logger = this.getLogger();
+
         Config.load(this);
 
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getServer().getPluginManager().registerEvents(guiManager, this);
-        System.out.println("Successfully registered event listeners.");
+        logger.info("Successfully registered event listeners.");
 
         DBManager.loadDatabase();
-        System.out.println("Successfully connected to the database.");
+        logger.info("Successfully connected to the database.");
 
         TownManager.load();
         RankManager.load();
-        System.out.println("Successfully loaded all managers.");
+        logger.info("Successfully loaded all managers.");
 
-        System.out.print("Plugin enabled.");
+        logger.info("Plugin enabled.");
     }
 
     @Override
     public void onDisable() {
-        Config.save();
-
         TownManager.save();
+
+        Config.save();
 
         DBManager.disable();
 
-        System.out.print("Plugin disabled.");
+        logger.info("Plugin disabled.");
     }
 
     @Override

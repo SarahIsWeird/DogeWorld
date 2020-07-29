@@ -1,5 +1,7 @@
 package com.sarahisweird.dogeverse.towns;
 
+import com.sarahisweird.dogeverse.dbmanager.DBException;
+import com.sarahisweird.dogeverse.dbmanager.DBManager;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

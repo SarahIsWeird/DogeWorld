@@ -1,5 +1,6 @@
 package com.sarahisweird.dogeverse.dbmanager;
 
+import com.sarahisweird.dogeverse.Dogeverse;
 import com.sarahisweird.dogeverse.config.Config;
 import com.sarahisweird.dogeverse.towns.Town;
 import org.bukkit.entity.Player;
@@ -24,7 +25,7 @@ public class DBManager {
             playersConn = DriverManager.getConnection("jdbc:sqlite:server.db");
             playersStmt = playersConn.createStatement();
         } catch (Exception e) {
-            System.err.println("Failed to connect to the SQLite database.");
+            Dogeverse.logger.severe("Failed to connect to the SQLite database.");
             e.printStackTrace();
         }
     }
@@ -34,11 +35,13 @@ public class DBManager {
      */
     public static void disable() {
         try {
-            playersStmt.close();
-            playersConn.commit();
+            playersStmt.closeOnCompletion();
             playersConn.close();
+            Dogeverse.logger.info("Database disabled.");
         } catch (SQLException e) {
-            System.err.println("Failed to properly close the SQLite database.");
+            e.printStackTrace();
+
+            Dogeverse.logger.severe("Failed to properly close the SQLite database.");
         }
     }
 
@@ -178,7 +181,7 @@ public class DBManager {
 
             returnVal = resultSet.getBoolean("flying");
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            Dogeverse.logger.severe(e.getMessage());
             e.printStackTrace();
             throw new DBException();
         }

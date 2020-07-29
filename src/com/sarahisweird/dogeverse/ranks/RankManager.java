@@ -46,7 +46,6 @@ public class RankManager {
      * @return The rank ID.
      */
     private static int rankToRankId(Rank rank) {
-        System.out.println(ranks.indexOf(rank));
         return ranks.indexOf(rank);
     }
 

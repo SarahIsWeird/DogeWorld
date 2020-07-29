@@ -139,7 +139,7 @@ public class DepositInventory {
 
                 try {
                     DBManager.removeBalance(player, playerData);
-                    TownManager.getTown(player).setBalance(TownManager.getTown(player).getBalance() + playerData);
+                    TownManager.getTown(player).addBalance(playerData);
                 } catch (DBException dbException) {
                     dbException.printStackTrace();
 

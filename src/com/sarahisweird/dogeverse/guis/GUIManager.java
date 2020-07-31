@@ -72,7 +72,7 @@ public class GUIManager implements Listener {
             case MAIN:
                 playerInventoryType.put(player, InventoryTypes.MAIN);
                 playerInventory.put(player, Bukkit.createInventory(null, 5 * 9, "Town Management"));
-                playerInventory.get(player).setContents(MainInventory.getContents());
+                playerInventory.get(player).setContents(MainInventory.getContents(player));
                 break;
 
             case TREASURY:

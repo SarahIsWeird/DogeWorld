@@ -1,8 +1,14 @@
 package com.sarahisweird.dogeverse.commands;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class CommandManager {
 
@@ -18,6 +24,43 @@ public class CommandManager {
      */
     public static boolean executeCommand(CommandSender sender, Command command, String label, String[] args) {
         /* Commands independent of (sender instanceof Player) */
+
+        if (command.getName().equalsIgnoreCase("test")) {
+            // General tests
+
+            Player player = (Player) sender;
+
+            ItemStack itemStack = new ItemStack(Material.WRITTEN_BOOK);
+            BookMeta bookMeta = (BookMeta) itemStack.getItemMeta();
+
+            bookMeta.setAuthor("SarahIsWeird");
+            bookMeta.setTitle("§6§lGetting started");
+
+            bookMeta.setPages(
+                    "§2§lGetting started with "
+                    + "your town§r             "
+                    + "                           "
+                    + "First of all, you pro-  bably want to "
+                    + "claim your town area. You can do that "
+                    + "with §6§o/town claim§r.",
+
+                    "§2§lInviting members§r    "
+                    + "                           "
+                    + "Your town could become the biggest town ever! "
+                    + "However, to do that you need to recruit "
+                    + "citizens. If you found someone that wants "
+                    + "to join your town, you can invite them "
+                    + "with §6§o/town invite§r. They will be asked "
+                    + "to accept, after which you can",
+                    "let them choose their plot!"
+                    // "                        "
+            );
+
+            itemStack.setItemMeta(bookMeta);
+
+            player.openBook(itemStack);
+            return true;
+        }
 
         if (command.getName().equalsIgnoreCase("db")) {
             return DatabaseCmds.execDBCmd(sender, args);

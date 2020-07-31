@@ -5,6 +5,7 @@ import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
 import com.sarahisweird.dogeverse.tasks.RemoveTownSetupNextTick;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -38,9 +39,10 @@ public class TownManager {
      * Saves town data to the database. Must be called on shutdown, preferably more often than that.
      */
     public static void save() {
-        for (Town town : addedTowns) {
+        for (Town town : removedTowns) {
             try {
-                DBManager.addTown(town);
+                Dogeverse.logger.info("Removing town " + town.name);
+                DBManager.removeTown(town);
             } catch (DBException e) {
                 e.printStackTrace();
             }
@@ -49,14 +51,6 @@ public class TownManager {
         for (Town town : towns) {
             try {
                 DBManager.addTown(town);
-            } catch (DBException e) {
-                e.printStackTrace();
-            }
-        }
-
-        for (Town town : removedTowns) {
-            try {
-                DBManager.removeTown(town);
             } catch (DBException e) {
                 e.printStackTrace();
             }
@@ -70,6 +64,15 @@ public class TownManager {
     public static void addTown(Town town) {
         towns.add(town);
         addedTowns.add(town);
+    }
+
+    /**
+     * Removes a town from the database.
+     * @param town The town to be removed.
+     */
+    public static void removeTown(Town town) {
+        towns.remove(town);
+        removedTowns.add(town);
     }
 
     /**
@@ -103,6 +106,13 @@ public class TownManager {
                 if (town.getMembers().size() == 0) {
                     removedTowns.add(town);
                     towns.remove(town);
+
+                    try {
+                        DBManager.removeTown(town);
+                    } catch (DBException e) {
+                        e.printStackTrace();
+                        return true;
+                    }
                 }
 
                 return true;
@@ -118,9 +128,24 @@ public class TownManager {
      * @return The town they are in. If they aren't in any town, this returns null.
      */
     @Nullable
-    public static Town getTown(Player player) {
+    public static Town getTown(@NotNull Player player) {
         for (Town town : towns) {
             if (town.isMember(player))
+                return town;
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets a town by it's name.
+     * @param townName The name of the town.
+     * @return The town in question. If it doesn't exist, returns null.
+     */
+    @Nullable
+    public static Town getTown(String townName) {
+        for (Town town : towns) {
+            if (town.name.equalsIgnoreCase(townName))
                 return town;
         }
 
@@ -151,16 +176,6 @@ public class TownManager {
     public static boolean initTownSetup(Player player) {
         if (isPlayerInTownCreation(player))
             return false;
-
-        try {
-            if (DBManager.getPlayerBalance(player) < 500) {
-                player.sendMessage("§cYou need 500 Doge to create a town!");
-                return true;
-            }
-        } catch (DBException e) {
-            e.printStackTrace();
-            return true;
-        }
 
         townsInSetup.add(new TownSetup(player));
 

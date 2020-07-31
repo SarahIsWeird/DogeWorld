@@ -35,6 +35,10 @@ public class Config {
         Config.plugin.saveConfig();
     }
 
+    public static int getAutoSaveTime() {
+        return Config.plugin.getConfig().getInt("general.autosave");
+    }
+
     /**
      * Checks whether a specific rank is the default rank.
      * @param rankName The rank to be checked.

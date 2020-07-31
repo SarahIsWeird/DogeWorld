@@ -66,6 +66,8 @@ public class DatabaseCmds {
                     return true;
                 }
 
+                TownManager.load();
+
                 sender.sendMessage(fmt("&aSuccessfully created the town database."));
                 return true;
             }

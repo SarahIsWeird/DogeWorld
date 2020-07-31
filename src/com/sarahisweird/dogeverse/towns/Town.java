@@ -45,7 +45,7 @@ public class Town {
             retString += str + ",";
         }
 
-        return retString.substring(0, retString.length() - 1); // Remove the last comma
+        return retString.substring(0, Math.max(retString.length() - 1, 0)); // Remove the last comma
     }
 
     /**
@@ -53,6 +53,11 @@ public class Town {
      * @return Itself.
      */
     public Town deserializeMembers(String serializedMembers) {
+        if (serializedMembers.equals("")) {
+            this.members = new ArrayList<>();
+            return this;
+        }
+
         this.members = new ArrayList<>(Arrays.asList(serializedMembers.split(",")));
         return this;
     }

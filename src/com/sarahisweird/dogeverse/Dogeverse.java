@@ -1,13 +1,13 @@
 package com.sarahisweird.dogeverse;
 
 import com.sarahisweird.dogeverse.commands.CommandManager;
-import com.sarahisweird.dogeverse.commands.TownCmds;
 import com.sarahisweird.dogeverse.config.Config;
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
 import com.sarahisweird.dogeverse.guis.GUIManager;
 import com.sarahisweird.dogeverse.ranks.Rank;
 import com.sarahisweird.dogeverse.ranks.RankManager;
+import com.sarahisweird.dogeverse.tasks.AutoSaveDatabase;
 import com.sarahisweird.dogeverse.tasks.UpdatePlayerCountNextTick;
 import com.sarahisweird.dogeverse.towns.TownManager;
 import org.bukkit.ChatColor;
@@ -31,6 +31,8 @@ public class Dogeverse extends JavaPlugin implements Listener {
 
     public static Logger logger;
 
+    public static Dogeverse plugin;
+
     // Alias for brevity
     private String fmt(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);
@@ -39,6 +41,7 @@ public class Dogeverse extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         logger = this.getLogger();
+        plugin = this;
 
         Config.load(this);
 
@@ -52,6 +55,9 @@ public class Dogeverse extends JavaPlugin implements Listener {
         TownManager.load();
         RankManager.load();
         logger.info("Successfully loaded all managers.");
+
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveDatabase(this),
+                1L, 20L * Config.getAutoSaveTime());
 
         logger.info("Plugin enabled.");
     }

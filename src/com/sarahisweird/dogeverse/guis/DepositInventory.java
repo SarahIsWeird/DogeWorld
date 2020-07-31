@@ -2,7 +2,6 @@ package com.sarahisweird.dogeverse.guis;
 
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
-import com.sarahisweird.dogeverse.inventories.GUIManager;
 import com.sarahisweird.dogeverse.towns.TownManager;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -177,7 +176,7 @@ public class DepositInventory {
 
             player.closeInventory();
 
-            GUIManager.removePlayerInformation(player);
+            GUIManager.setInformation(player, null);
 
             player.sendMessage("§cSorry, there was an error. Please contact a staff member for further assistance.");
 

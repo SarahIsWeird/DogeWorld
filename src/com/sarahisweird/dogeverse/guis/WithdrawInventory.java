@@ -178,7 +178,7 @@ public class WithdrawInventory {
 
             player.closeInventory();
 
-            com.sarahisweird.dogeverse.inventories.GUIManager.removePlayerInformation(player);
+            GUIManager.setInformation(player, null);
 
             player.sendMessage("§cSorry, there was an error. Please contact a staff member for further assistance.");
 

@@ -1,5 +1,8 @@
 package com.sarahisweird.dogeverse.towns;
 
+import com.sarahisweird.dogeverse.Dogeverse;
+import com.sarahisweird.dogeverse.dbmanager.DBException;
+import com.sarahisweird.dogeverse.dbmanager.DBManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -14,9 +17,26 @@ public class TownSetup {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
-    private boolean finalizeTown() {
+    private void finalizeTown() {
+        try {
+            if (DBManager.getPlayerBalance(player) < 500) {
+                player.sendMessage("§4Don't try to swindle us! This will be reported.");
+
+                Dogeverse.logger.warning("Player " + player.getName() + " tried to dodge the town setup fee.");
+
+                this.cancelled = true;
+                return;
+            }
+
+            DBManager.removeBalance(player, 500);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+
         Town town = new Town(this.townName, this.townPrefix, this.player.getUniqueId().toString(), 0);
         town.addMember(this.player);
+
+        System.out.println(this.player.getName());
 
         TownManager.addTown(town);
         TownManager.save();
@@ -25,8 +45,6 @@ public class TownSetup {
 
         this.player.sendMessage(fmt("&aSuccessfully created your town! Type /info towns for more information on "
                 + "how to get your town going!"));
-
-        return true;
     }
 
     public TownSetup(Player player) {

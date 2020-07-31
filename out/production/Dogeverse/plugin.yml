@@ -40,3 +40,6 @@ commands:
     usage: "Usage: /broadcast <message...>"
     description: "Broadcasts a server-wide message."
     aliases: ["bc", "say"]
+  test:
+    usage: "Usage: /test"
+    description: "Tests things."

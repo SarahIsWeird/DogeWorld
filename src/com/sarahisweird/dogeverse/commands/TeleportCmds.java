@@ -16,12 +16,12 @@ public class TeleportCmds {
 
     public static boolean execRandomTeleportCmd(Player sender) {
         try {
-            if (DBManager.getPlayerBalance(sender) < 10) {
+            if (DBManager.getPlayerBalance(sender) < 5) {
                 sender.sendMessage("§cYou need 10 Doge to execute /rtp.");
                 return true;
             }
 
-            DBManager.removeBalance(sender, 10);
+            DBManager.removeBalance(sender, 5);
         } catch (DBException e) {
             e.printStackTrace();
             return false;

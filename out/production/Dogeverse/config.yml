@@ -1,3 +1,6 @@
+general:
+  autosave: 300 # Time between autosaves in seconds
+
 towns:
   size_min:
     x: 10

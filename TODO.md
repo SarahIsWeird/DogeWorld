@@ -22,7 +22,8 @@
 - [ ] Optimize /rtp
 - [x] Use Logger system instead of ``System.out.println("");``
 - [ ] Cache configuration
+- [x] Autosave every five minutes
 
 ### Bugfixes
 - [x] (#01) Town balance doesn't save on shutdown
-- [ ] (#02) Fees for some commands don't work properly
+- [x] (#02) Fees for some commands don't work properly

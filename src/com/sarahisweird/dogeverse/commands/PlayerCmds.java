@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 
 public class PlayerCmds {
     public static boolean execHealCmd(Player player) {
+
+
         player.setFoodLevel(20);
         player.setHealth(20);
         player.setSaturation(20);
@@ -19,6 +21,10 @@ public class PlayerCmds {
     }
 
     public static boolean execFlyCmd(Player player) {
+        if (!player.isPermissionSet("dogeverse.fly.own")) {
+            return CommandManager.fakeHelp(player);
+        }
+
         if (player.getGameMode() != GameMode.SURVIVAL) {
             player.sendMessage("§eYou don't really want to change your ability to fly, do you?");
             return true;
@@ -76,10 +82,15 @@ public class PlayerCmds {
                 return true;
             }
 
+            if (player == null) {
+                sender.sendMessage("§cThat player doesn't exist.");
+                return true;
+            }
+
             try {
                 DBManager.setPlayerNick(player, args[1]);
             } catch (DBException e) {
-                player.sendMessage("§cFailed to change " + args[0] + "'s nickname. Please contact a staff member.");
+                sender.sendMessage("§cFailed to change " + args[0] + "'s nickname. Please contact a staff member.");
                 return true;
             }
 

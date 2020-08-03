@@ -2,9 +2,12 @@ package com.sarahisweird.dogeverse.commands;
 
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
+import com.sarahisweird.dogeverse.permissions.PermissionManager;
 import com.sarahisweird.dogeverse.towns.TownManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 
 import java.util.List;
 
@@ -15,11 +18,19 @@ public class DatabaseCmds {
 
     public static boolean execDBCmd(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("Available subcommands: /db create, dump");
+            if (sender.getServer().getConsoleSender() != sender
+                    && !PermissionManager.hasAnySubPermission((Player) sender, "dogeverse.database"))
+                return true;
+
+            sender.sendMessage("Available subcommands: /db create, dump, save");
             return true;
         }
 
         if (args[0].equalsIgnoreCase("create")) {
+            if (sender.getServer().getConsoleSender() != sender)
+                if (!sender.isPermissionSet("dogeverse.database.create"))
+                    return CommandManager.fakeHelp(sender);
+
             if (args.length < 2) {
                 sender.sendMessage(fmt("&eUse /db create <dbname> to create a database."));
                 sender.sendMessage(fmt("&eAvailable database names are: &oplayers, towns"));
@@ -79,6 +90,10 @@ public class DatabaseCmds {
                 return true;
             }
         } else if (args[0].equalsIgnoreCase("dump")) {
+            if (sender.getServer().getConsoleSender() != sender)
+                if (!sender.isPermissionSet("dogeverse.database.dump"))
+                    return CommandManager.fakeHelp(sender);
+
             if (args.length < 2) {
                 sender.sendMessage(fmt("&eUse /db dump <db name> to view it's contents."));
                 sender.sendMessage(fmt("&eAvailable databases: &oplayers, towns"));
@@ -111,6 +126,10 @@ public class DatabaseCmds {
 
             return true;
         } else if (args[0].equalsIgnoreCase("save")) {
+            if (sender.getServer().getConsoleSender() != sender)
+                if (!sender.isPermissionSet("dogeverse.database.save"))
+                    return CommandManager.fakeHelp(sender);
+
             TownManager.save();
 
             sender.sendMessage("§aSuccessfully saved the database.");

@@ -9,6 +9,7 @@
 - [x] Make town GUI responsive (change deposit/withdraw values in the GUI)
 - [ ] Make economy work on Dogecoin
 - [ ] Add town plots
+- [ ] Add permission system
 
 ### To-Do (Low priority)
 - [x] Show town prefix in chat in front of name

@@ -35,9 +35,4 @@ public class UtilityCmds {
 
         return true;
     }
-
-    public static boolean execRestartCommand(CommandSender sender) {
-        Bukkit.spigot().restart();
-        return true;
-    }
 }

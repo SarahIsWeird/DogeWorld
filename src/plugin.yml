@@ -43,3 +43,7 @@ commands:
   test:
     usage: "Usage: /test"
     description: "Tests things."
+  perm:
+    usage: "Usage: /perm"
+    description: "Lists and modifies permissions."
+    aliases: ["perms", "permission", "permissions", "p"]

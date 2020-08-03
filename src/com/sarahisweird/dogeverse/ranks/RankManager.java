@@ -30,6 +30,10 @@ public class RankManager {
         defaultRank = ranks.get(0);
     }
 
+    public static List<Rank> getRanks() {
+        return ranks;
+    }
+
     /**
      * Converts a rank ID into an instance of the rank.
      * @param id The rank ID.
@@ -59,7 +63,7 @@ public class RankManager {
             return rankIdToRank(DBManager.getPlayerRank(player));
         } catch (DBException e) {
             e.printStackTrace();
-            return null;
+            return ranks.get(0);
         }
     }
 

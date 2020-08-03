@@ -2,6 +2,8 @@ package com.sarahisweird.dogeverse.ranks;
 
 import com.sarahisweird.dogeverse.config.Config;
 
+import java.util.List;
+
 public abstract class Rank {
     private String name;
     private String prefix;

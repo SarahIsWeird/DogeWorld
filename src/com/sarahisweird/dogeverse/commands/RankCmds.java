@@ -1,5 +1,6 @@
 package com.sarahisweird.dogeverse.commands;
 
+import com.sarahisweird.dogeverse.permissions.PermissionManager;
 import com.sarahisweird.dogeverse.ranks.Rank;
 import com.sarahisweird.dogeverse.ranks.RankManager;
 import org.bukkit.ChatColor;
@@ -14,6 +15,12 @@ public class RankCmds {
         }
 
         if (args[0].equalsIgnoreCase("set")) {
+            if (!sender.getServer().getConsoleSender().equals(sender)
+                    && PermissionManager.hasPermission((Player) sender, "dogeverse.rank.set")) {
+                sender.sendMessage("Unknown command. Type \"help\" for help.");
+                return true;
+            }
+
             if (args.length != 3) {
                 sender.sendMessage("§cUsage: /rank set <player> <rank>");
                 return true;
@@ -45,6 +52,8 @@ public class RankCmds {
             } else {
                 sender.sendMessage("§cCouldn't set " + args[1] + "'s rank.");
             }
+
+            PermissionManager.reloadPlayer(newRankPlayer);
 
             return true;
         }

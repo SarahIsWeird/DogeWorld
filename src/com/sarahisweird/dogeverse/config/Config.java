@@ -2,6 +2,8 @@ package com.sarahisweird.dogeverse.config;
 
 import com.sarahisweird.dogeverse.Dogeverse;
 
+import java.util.List;
+
 public class Config {
     private static Dogeverse plugin;
 
@@ -132,5 +134,12 @@ public class Config {
      */
     public static int getMaxTownSetupSize() {
         return maxTownSetupSize;
+    }
+
+    public static List<String> getPermissions(String rankName) {
+        if (!Config.plugin.getConfig().isList("ranks." + rankName + ".permissions"))
+            return null;
+
+        return Config.plugin.getConfig().getStringList("ranks." + rankName + ".permissions");
     }
 }

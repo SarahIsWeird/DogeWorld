@@ -5,6 +5,7 @@ import com.sarahisweird.dogeverse.config.Config;
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
 import com.sarahisweird.dogeverse.guis.GUIManager;
+import com.sarahisweird.dogeverse.permissions.PermissionManager;
 import com.sarahisweird.dogeverse.ranks.Rank;
 import com.sarahisweird.dogeverse.ranks.RankManager;
 import com.sarahisweird.dogeverse.tasks.AutoSaveDatabase;
@@ -14,6 +15,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,12 +26,17 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class Dogeverse extends JavaPlugin implements Listener {
     GUIManager guiManager = new GUIManager();
+
+    private File permissionsConfigFile;
+    private FileConfiguration permissionsConfig;
 
     public static Logger logger;
 
@@ -38,12 +47,35 @@ public class Dogeverse extends JavaPlugin implements Listener {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
+    public FileConfiguration getPermissionsConfig() {
+        return this.permissionsConfig;
+    }
+
+    private void createPermissionsConfig() {
+        permissionsConfigFile = new File(getDataFolder(), "permissions.yml");
+
+        if (!permissionsConfigFile.exists()) {
+            permissionsConfigFile.getParentFile().mkdirs();
+            saveResource("permissions.yml", false);
+        }
+
+        permissionsConfig = new YamlConfiguration();
+
+        try {
+            permissionsConfig.load(permissionsConfigFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+            logger.severe("Failed to load permissions.yml.");
+        }
+    }
+
     @Override
     public void onEnable() {
         logger = this.getLogger();
         plugin = this;
 
         Config.load(this);
+        createPermissionsConfig();
 
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getServer().getPluginManager().registerEvents(guiManager, this);
@@ -54,6 +86,7 @@ public class Dogeverse extends JavaPlugin implements Listener {
 
         TownManager.load();
         RankManager.load();
+        PermissionManager.load();
         logger.info("Successfully loaded all managers.");
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveDatabase(this),
@@ -103,6 +136,8 @@ public class Dogeverse extends JavaPlugin implements Listener {
         if (rank == null) {
             rank = RankManager.rankNameToRank("member");
         }
+
+        PermissionManager.initPlayer(player);
 
         String order = rank.getOrder();
 

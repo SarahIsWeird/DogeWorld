@@ -12,6 +12,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class CommandManager {
 
+    public static boolean fakeHelp(CommandSender sender) {
+        sender.sendMessage("Unknown command. Type \"/help\" for help.");
+        return true;
+    }
+
     /**
      * Calls the specific command. Must be called in the onCommand method of the main class.
      *
@@ -80,6 +85,12 @@ public class CommandManager {
                 || command.getName().equalsIgnoreCase("bc")
                 || command.getName().equalsIgnoreCase("say")) {
             return UtilityCmds.execBroadcastCommand(sender, args);
+        } else if (command.getName().equalsIgnoreCase("perm")
+                || command.getName().equalsIgnoreCase("perms")
+                || command.getName().equalsIgnoreCase("permission")
+                || command.getName().equalsIgnoreCase("permissions")
+                || command.getName().equalsIgnoreCase("p")) {
+            return PermissionCmds.onPermissionCmd(sender, args);
         }
 
         /* Commands with (sender instanceof Player) */

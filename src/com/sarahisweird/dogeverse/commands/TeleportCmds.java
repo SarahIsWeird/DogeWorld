@@ -14,14 +14,17 @@ public class TeleportCmds {
 
     private static final int bound = 30000;
 
-    public static boolean execRandomTeleportCmd(Player sender) {
+    public static boolean execRandomTeleportCmd(Player player) {
+        if (!player.isPermissionSet("dogeverse.teleport.rtp"))
+            return CommandManager.fakeHelp(player);
+        
         try {
-            if (DBManager.getPlayerBalance(sender) < 5) {
-                sender.sendMessage("§cYou need 10 Doge to execute /rtp.");
+            if (DBManager.getPlayerBalance(player) < 5) {
+                player.sendMessage("§cYou need 10 Doge to execute /rtp.");
                 return true;
             }
 
-            DBManager.removeBalance(sender, 5);
+            DBManager.removeBalance(player, 5);
         } catch (DBException e) {
             e.printStackTrace();
             return false;
@@ -38,7 +41,7 @@ public class TeleportCmds {
         int highestBlockY;
         Material highestBlockType;
 
-        World world = sender.getWorld();
+        World world = player.getWorld();
 
         do {
             x = rnd.nextInt(bound * 2) - bound;
@@ -49,16 +52,19 @@ public class TeleportCmds {
 
         highestBlockY = world.getHighestBlockYAt(x, z);
 
-        sender.sendMessage("Teleporting to " + x + ", " + highestBlockY + ", " + z + "...");
+        player.sendMessage("Teleporting to " + x + ", " + highestBlockY + ", " + z + "...");
 
-        Location tpLocation = new Location(sender.getWorld(), x + 0.5, highestBlockY + 1, z + 0.5);
+        Location tpLocation = new Location(player.getWorld(), x + 0.5, highestBlockY + 1, z + 0.5);
 
-        sender.teleport(tpLocation);
+        player.teleport(tpLocation);
 
         return true;
     }
 
     public static boolean execSpawnCmd(Player player) {
+        if (!player.isPermissionSet("dogeverse.teleport.spawn"))
+            return CommandManager.fakeHelp(player);
+
         Location tpLocation = new Location(player.getWorld(), 169.5, 68, 191.5);
 
         player.teleport(tpLocation);

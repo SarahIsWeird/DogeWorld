@@ -1,0 +1,255 @@
+all:
+  - dogeverse.balance.balance
+  - dogeverse.balance.pay
+  - dogeverse.balance.add
+  - dogeverse.balance.remove
+  - dogeverse.balance.set
+
+  - dogeverse.teleport.rtp
+  - dogeverse.teleport.spawn
+  - dogeverse.teleport.setspawn
+  - dogeverse.teleport.tpask
+  - dogeverse.teleport.tpahere
+  - dogeverse.teleport.tpaccept
+  - dogeverse.teleport.tpdeny
+  - dogeverse.teleport.tp.self
+  - dogeverse.teleport.tp.others
+
+  - dogeverse.town.create
+  - dogeverse.town.leave
+  - dogeverse.town.kick.own
+  - dogeverse.town.kick.others
+  - dogeverse.town.invite
+  - dogeverse.town.softleave
+  - dogeverse.town.forcejoin
+
+  - dogeverse.chat.colors
+
+  - dogeverse.utils.colors
+  - dogeverse.utils.broadcast
+
+  - dogeverse.admin.kick
+  - dogeverse.admin.tempban
+  - dogeverse.admin.ban
+  - dogeverse.admin.jail.member
+  - dogeverse.admin.jail.donator
+  - dogeverse.admin.jail.juniorhelper
+  - dogeverse.admin.jail.helper
+  - dogeverse.admin.jail.juniormod
+  - dogeverse.admin.jail.moderator
+
+  - dogeverse.utils.colors
+  - dogeverse.utils.broadcast
+
+  - dogeverse.fly.own
+  - dogeverse.fly.others
+
+  - dogeverse.nick.own
+  - dogeverse.nick.others
+  - dogeverse.nick.reset.own
+  - dogeverse.nick.reset.others
+
+  - dogeverse.database.create
+  - dogeverse.database.dump
+  - dogeverse.database.save
+
+  - dogeverse.permissions.list
+  - dogeverse.permissions.plist
+
+member:
+  - dogeverse.balance.balance
+  - dogeverse.balance.pay
+
+  - dogeverse.teleport.rtp
+  - dogeverse.teleport.spawn
+  - dogeverse.teleport.tpask
+  - dogeverse.teleport.tpahere
+  - dogeverse.teleport.tpaccept
+  - dogeverse.teleport.tpdeny
+
+  - dogeverse.town.create
+  - dogeverse.town.leave
+  - dogeverse.town.invite
+  - dogeverse.town.kick
+
+donator:
+  - dogeverse.balance.balance
+  - dogeverse.balance.pay
+
+  - dogeverse.nick.own
+  - dogeverse.nick.reset.own
+
+  - dogeverse.chat.colors
+
+  - dogeverse.teleport.rtp
+  - dogeverse.teleport.spawn
+  - dogeverse.teleport.tpask
+  - dogeverse.teleport.tpahere
+  - dogeverse.teleport.tpaccept
+  - dogeverse.teleport.tpdeny
+
+  - dogeverse.town.create
+  - dogeverse.town.leave
+  - dogeverse.town.invite
+  - dogeverse.town.kick
+
+  - dogeverse.utils.colors
+
+juniorhelper:
+  - dogeverse.balance.balance
+  - dogeverse.balance.pay
+
+  - dogeverse.nick.own
+  - dogeverse.nick.reset.*
+
+  - dogeverse.chat.colors
+
+  - dogeverse.teleport.rtp
+  - dogeverse.teleport.spawn
+  - dogeverse.teleport.tpask
+  - dogeverse.teleport.tpahere
+  - dogeverse.teleport.tpaccept
+  - dogeverse.teleport.tpdeny
+  - dogeverse.teleport.tphere
+
+  - dogeverse.town.create
+  - dogeverse.town.leave
+  - dogeverse.town.invite
+  - dogeverse.town.kick
+
+  - admin.jail.member
+  - admin.jail.donator
+  - admin.jail.unjail
+
+  - dogeverse.utils.colors
+
+helper:
+  - dogeverse.balance.balance
+  - dogeverse.balance.pay
+
+  - dogeverse.fly.own
+
+  - dogeverse.nick.own
+  - dogeverse.nick.reset.*
+
+  - dogeverse.chat.colors
+
+  - dogeverse.teleport.rtp
+  - dogeverse.teleport.spawn
+  - dogeverse.teleport.tpask
+  - dogeverse.teleport.tpaccept
+  - dogeverse.teleport.tpdeny
+  - dogeverse.teleport.tphere
+
+  - dogeverse.town.create
+  - dogeverse.town.leave
+  - dogeverse.town.kick
+  - dogeverse.town.invite
+
+  - admin.jail.member
+  - admin.jail.donator
+  - admin.jail.juniorhelper
+  - admin.jail.unjail
+
+  - dogeverse.utils.colors
+
+juniormod:
+  - dogeverse.balance.balance
+  - dogeverse.balance.pay
+
+  - dogeverse.fly.own
+
+  - dogeverse.nick.*
+
+  - dogeverse.teleport.rtp
+  - dogeverse.teleport.spawn
+  - dogeverse.teleport.tpask
+  - dogeverse.teleport.tpaccept
+  - dogeverse.teleport.tpdeny
+  - dogeverse.teleport.tp.self
+  - dogeverse.teleport.tphere
+
+  - dogeverse.town.create
+  - dogeverse.town.leave
+  - dogeverse.town.kick
+  - dogeverse.town.invite
+
+  - dogeverse.chat.colors
+
+  - dogeverse.utils.color
+  - dogeverse.utils.broadcast
+
+  - dogeverse.admin.kick
+  - dogeverse.admin.tempban
+  - dogeverse.admin.jail.member
+  - dogeverse.admin.jail.donator
+  - dogeverse.admin.jail.juniorhelper
+  - dogeverse.admin.jail.helper
+  - dogeverse.admin.jail.unjail
+
+moderator:
+  - dogeverse.balance.balance
+  - dogeverse.balance.pay
+  - dogeverse.balance.add
+  - dogeverse.balance.remove
+  - dogeverse.balance.set
+
+  - dogeverse.fly.*
+
+  - dogeverse.nick.*
+
+  - dogeverse.teleport.rtp
+  - dogeverse.teleport.spawn
+  - dogeverse.teleport.tpask
+  - dogeverse.teleport.tpaccept
+  - dogeverse.teleport.tpdeny
+  - dogeverse.teleport.tp.*
+  - dogeverse.teleport.tphere
+
+  - dogeverse.town.create
+  - dogeverse.town.leave
+  - dogeverse.town.kick.*
+  - dogeverse.town.invite
+
+  - dogeverse.chat.colors
+
+  - dogeverse.utils.colors
+  - dogeverse.utils.broadcast
+
+  - dogeverse.admin.kick
+  - dogeverse.admin.tempban
+  - dogeverse.admin.ban
+  - dogeverse.admin.jail.member
+  - dogeverse.admin.jail.donator
+  - dogeverse.admin.jail.juniorhelper
+  - dogeverse.admin.jail.helper
+  - dogeverse.admin.jail.juniormod
+
+  - dogeverse.permissions.list
+  - dogeverse.permissions.plist
+
+cm:
+  - dogeverse.balance.*
+
+  - dogeverse.fly.*
+
+  - dogeverse.nick.*
+
+  - dogeverse.teleport.*
+
+  - dogeverse.town.*
+
+  - dogeverse.chat.colors
+
+  - dogeverse.utils.colors
+  - dogeverse.utils.broadcast
+
+  - dogeverse.admin.*
+
+  - dogeverse.permissions.*
+
+developer:
+  - dogeverse.*
+
+owner:
+  - dogeverse.*

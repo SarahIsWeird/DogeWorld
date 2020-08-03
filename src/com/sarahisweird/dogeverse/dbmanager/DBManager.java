@@ -156,7 +156,7 @@ public class DBManager {
             }
 
             playersStmt.execute("INSERT INTO players (UUID, flying, rank, nickname, balance) "
-                    + "VALUES ('" + uuid + "', 0, 0, '', 20);");
+                    + "VALUES ('" + uuid + "', 0, 0, '', 20000);");
 
             return true;
         } catch (SQLException e) {

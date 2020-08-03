@@ -3,11 +3,16 @@ package com.sarahisweird.dogeverse.commands;
 import com.sarahisweird.dogeverse.config.Config;
 import com.sarahisweird.dogeverse.dbmanager.DBException;
 import com.sarahisweird.dogeverse.dbmanager.DBManager;
+import com.sarahisweird.dogeverse.permissions.PermissionManager;
 import org.bukkit.entity.Player;
 
 public class BalanceCmds {
     public static boolean execBalanceCmd(Player player, String[] args) {
         if (args.length == 0) {
+            if (!player.isPermissionSet("dogeverse.balance.balance")) {
+                return CommandManager.fakeHelp(player);
+            }
+
             try {
                 player.sendMessage("§6You have " + DBManager.getPlayerBalance(player) + " Doge.");
                 return true;
@@ -16,6 +21,10 @@ public class BalanceCmds {
                 return false;
             }
         } else if (args[0].equalsIgnoreCase("add")) {
+            if (!player.isPermissionSet("dogeverse.balance.add")) {
+                return CommandManager.fakeHelp(player);
+            }
+
             if (args.length != 3) {
                 player.sendMessage("§eUsage: /balance add <player> <amount>");
                 return true;
@@ -44,6 +53,10 @@ public class BalanceCmds {
 
             return true;
         } else if (args[0].equalsIgnoreCase("remove")) {
+            if (!player.isPermissionSet("dogeverse.balance.remove")) {
+                return CommandManager.fakeHelp(player);
+            }
+
             if (args.length != 3) {
                 player.sendMessage("§eUsage: /balance remove <player> <amount>");
                 return true;
@@ -76,6 +89,15 @@ public class BalanceCmds {
 
             return true;
         } else if (args[0].equalsIgnoreCase("set")) {
+            if (!player.isPermissionSet("dogeverse.balance.set")) {
+                return CommandManager.fakeHelp(player);
+            }
+
+            if (!player.isPermissionSet("dogeverse.balance.set")) {
+                player.sendMessage("Unknown command. Type \"/help\" for help.");
+                return true;
+            }
+
             if (args.length != 3) {
                 player.sendMessage("§eUsage: /balance set <player> <amount>");
                 return true;
